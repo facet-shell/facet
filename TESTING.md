@@ -137,10 +137,15 @@ repo of that part with the Bug form and paste the output of the command named fo
 - [ ] `frame login auto`, reboot: no greeter, the shell's lockscreen asks for the password; after
       a logout the greeter is there
       - an open desktop or a logout loop? `journalctl -b -t frame-start-locked`
-- [ ] `frame boot`: it says whether the plymouth hook and `splash` are there and rebuilds the
-      initramfs without errors
-- [ ] Reboot: the splash is a frame with "frameshell" and a progress line in the theme; with
-      LUKS the password prompt is in that frame
+- [ ] `frame boot`: it rebuilds the initramfs without errors and ends with `frame boot check`,
+      all lines ✓ (or a warning that says what to change)
+- [ ] Reboot: the splash shows while booting, a frame with "frameshell", a filling progress
+      line and "starting"; with LUKS the password prompt is in that frame
+      - nothing at boot? `frame boot check`, and send its output
+- [ ] Shut down: the splash says "shutting down" and a short piece of the line sweeps back
+      and forth; a restart says "restarting"
+- [ ] `frame update` with an older splash installed: step "Boot splash" installs it again,
+      the next one says "up to date"
 - [ ] Ctrl+Alt+F3: the console has the theme's colors (`systemctl status frameshell-vtrgb`)
 - [ ] With GRUB: `frame grub`, reboot, the menu is in the theme
 - Back: `frame boot remove`, `frame grub remove`

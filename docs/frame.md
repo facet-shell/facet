@@ -40,6 +40,7 @@ frame theme set              # without a name: pick one with the arrow keys
 frame grub                   # theme the GRUB boot menu (sudo)
 frame grub remove            # switch it off again
 frame boot                   # boot splash (Plymouth) and text console colors (sudo)
+frame boot check             # why the splash does not show at boot
 frame boot remove            # the distro's splash and default console colors again
 frame login                  # the lockscreen look as the login screen (greetd, sudo)
 frame login remove           # back to the greeter
@@ -78,9 +79,15 @@ Trying it without a reboot: switch to a text console (Ctrl+Alt+F3), log in and r
 menu and the login screen (it also asks for the disk password with LUKS), gets a frame
 with the wordmark, a progress line and a status line, drawn from
 `themes/templates/plymouth/` in the active theme; the initramfs is rebuilt afterwards
-(mkinitcpio or dracut), since the splash lives in it. It needs the `plymouth` hook in
-`/etc/mkinitcpio.conf` and `splash` on the kernel command line (CachyOS has both) and says
-so when one is missing. The text consoles (Ctrl+Alt+F3, also what you see when the
+(mkinitcpio or dracut), since the splash lives in it. The status line says starting,
+shutting down or restarting; when booting the line shows the progress, when shutting
+down a short piece of it sweeps back and forth. `frame update` installs the splash again
+when it changed. It needs the `plymouth` hook in `/etc/mkinitcpio.conf` and `splash` on
+the kernel command line (CachyOS has both). `frame boot check` (also run at the end of
+`frame boot`) says what keeps it from showing: no hook, no `splash`, an initramfs without
+the theme, the NVIDIA driver missing from the initramfs (then the splash has no screen
+until the boot is nearly done), or the boot's plymouth still running in the desktop
+(then shutdown shows that one as "starting"). The text consoles (Ctrl+Alt+F3, also what you see when the
 graphical login fails) get the theme's 16 colors through `setvtrgb` and a small service,
 `frameshell-vtrgb`, that sets them before the login screen. After `frame theme set`, run
 `frame boot` again for the new colors.
