@@ -98,6 +98,14 @@ repo of that part with the Bug form and paste the output of the command named fo
 - [ ] silent in the control center: popups stay away and count on the bell; the bell opens the
       history
 - [ ] A song change in Spotify: a popup top left
+- [ ] Settings → notifications → where: try every arrow with `notify-send hello world`; left:
+      icon left, right: icon right, top or bottom middle: no icon, text centered; at the
+      bottom the newest sits nearest the edge
+- [ ] Style line and minimal: one line each; a Discord call still has accept and decline
+- [ ] Spotify popup: wide, tall and strip, size 0.6× and 1.6×, every position, the cover
+      mirrored like the notifications
+- [ ] Discord open on the second screen, a DM arrives: no popup ("on no screen"); set "messages
+      while Discord is open" to anyway: the popup comes
 - [ ] Nothing shows? `busctl --user list | grep Notifications` must name `qs`, not mako, dunst
       or swaync
 
@@ -226,7 +234,9 @@ Switch with `frame layout canvas`.
 ## 14. Game mode and Super+Tab
 
 - [ ] Start a Steam game: it gets its own workspace and the screen follows; after a few seconds
-      "game mode on", animations and blur off, popups quiet, the wallpaper paused
+      "game mode on", animations and blur off, the wallpaper paused
+- [ ] In the game: `notify-send hello` waits on the bell; a Steam invite, a friend request, a
+      Discord DM or call still pops up (the rules' defaults); the next Spotify song does not
       - nothing happens? `hyprctl clients | grep -e class -e workspace` while it runs; a Steam
         game shows `steam_app_<number>`, other games go into "other games" in the settings app
 - [ ] Super+Tab goes to the desktop and back to the game

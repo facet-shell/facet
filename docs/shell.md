@@ -137,8 +137,9 @@ is checked again when that window closes.
 
 **Game mode** switches itself on while a game runs: Steam games (window class
 `steam_app_<id>`), gamescope, and the classes in `gameClasses` in the settings app (or `config/Config.qml`).
-It turns animations and blur off, sets the performance power profile, silences popups
-(calls and alarms still come through), pauses the wallpaper and, with `goxlrGameProfile`
+It turns animations and blur off, sets the performance power profile, holds back the
+popups the notification rules mark "not in game" (calls, invites and messages still come
+through by default), pauses the wallpaper and, with `goxlrGameProfile`
 set, loads that GoXLR profile. When the last game closes, everything goes back, the
 GoXLR profile too. Switching it on by hand in the control center still works; a game
 does not turn off what you switched on yourself. `gameModeAuto: false` turns the
@@ -208,7 +209,22 @@ calls stay until handled. "silent" in the control center keeps popups away (call
 critical ones still show) and counts them on the bell in the bar; the bell opens the
 history (`qs ipc call notifications toggle`).
 
-Spotify gets a popup top left on every song change. Hovering the song in the bar shows a
+The settings app's **notifications** section decides what shows when. Every kind (desktop
+apps, game mode, Discord calls, messages, mentions, voice, events, mute; Steam invites, friend
+requests, messages, friends online, achievements, downloads; the Spotify song popup) is
+*always*, *not in game* (it waits on the bell until the game is over) or *never*. By default
+calls, invites, friend requests and messages always come through, the rest waits while you
+play. Discord and Steam messages also have "while the app is open": anyway, not while it is
+focused, or only while it is on no screen (Discord on the second screen counts as seen).
+
+Where the popups sit is up to you too: any corner, or the middle of the top or bottom edge.
+The icon goes to the side they sit on and the text lines up with it; in the middle there is
+no icon and everything is centered. Styles: *card* (the frame with picture and buttons),
+*line* (one line) and *minimal* (only who and what; whatever needs an answer shows as a line).
+
+Spotify gets a popup top left on every song change: *wide* (cover beside the song), *tall*
+(big cover on top) or *strip* (one thin line), with its own place, size and time on screen,
+mirrored the same way. Hovering the song in the bar shows a
 card with progress and play/pause; next/previous appear only when the player supports
 them over MPRIS (Spotify yes, a YouTube tab usually not).
 
@@ -216,7 +232,8 @@ them over MPRIS (Spotify yes, a YouTube tab usually not).
 
 `vencord/plugins/shellBridge` talks to the shell over `$XDG_RUNTIME_DIR/qs-discord.sock`:
 
-- DMs and mentions, with "open" (not while Vesktop is the focused window, you see them there)
+- DMs and mentions, with "open" (by default not while Vesktop is on a screen, you see them
+  there; see "while the app is open" above)
 - people joining or leaving your voice channel
 - channels you watch (right-click a voice channel → "Watch in shell"), with "join"
 - scheduled server events going live, with "join" for stage and voice events
@@ -353,8 +370,10 @@ settings in a window of their own:
 
 - **look**: the theme (every app, the boot screen and the keyboard follow), tiling or the
   infinite canvas, the wallpaper app, the lockscreen blur
-- **shell**: lock and screens off when idle, how long notifications stay and how many at once,
-  the weather's city
+- **shell**: lock and screens off when idle, the weather's city
+- **notifications**: what shows when (per kind: always, not in game, never), messages while
+  Discord or Steam is open, where the popups sit, their style, width, time and how many at
+  once; the Spotify popup's place, format, size and time
 - **launcher**: the web search engine, Claude on or off and its model, where file search
   looks, snooze length
 - **games**: game mode by itself, quiet while playing, other games by window class, a GoXLR
