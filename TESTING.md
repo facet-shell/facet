@@ -317,3 +317,25 @@ Nothing has been sent to the board yet. Go in the order of
 - [ ] Dolphin (Super+E): the theme's colors and JetBrains Mono after one logout
       (`echo $QT_QPA_PLATFORMTHEME` says `qt6ct`); "Open with" lists apps
 - [ ] With a GoXLR: `frame goxlr` lights the faders and buttons in the theme
+
+## 22. Drawing and paint
+
+- [ ] Super+P: the toolbar at the bottom of the focused screen, the icons are symbols (no boxes);
+      draw with the pen on every screen; hovering a button names it in the frame
+      - nothing happens? `qs log | grep -i draw`, and `hyprctl binds | grep -A3 'key: P'` shows
+        only the frame bind
+- [ ] Each tool once: highlighter is see-through, line and arrow with Shift snap to 15°,
+      rectangle and ellipse with Shift are square and round, text: click, type, Enter
+- [ ] Eraser takes a whole stroke; Ctrl+Z brings it back, Ctrl+Shift+Z takes it again
+- [ ] Ruler: drag it, wheel turns it (the degrees change), the pen along its edge is straight
+- [ ] Click through: the drawing stays, a click on a window reaches it, the toolbar still works
+- [ ] Super+P hides it, Super+P shows it again; Super+Shift+Escape (shell restart), Super+P:
+      still there; Super+Shift+P clears it
+- [ ] Canvas layout: draw an arrow at a window, drag the empty canvas (or right drag on the
+      drawing): the arrow stays at the window, also while dragging
+- [ ] Screenshot, "edit": the tools on the left; an arrow and a box, `v`, then a blur box still
+      moves; Ctrl+S: `<name>-edit.png` has the drawing sharp, in full size and cropped with the
+      rest; reopen: the drawing is still editable (in `<name>.edit.json`)
+- [ ] Super+G, "new picture", "white": an empty page opens with the pen, the window says paint;
+      Ctrl+S writes `~/Pictures/paintings/painting-…-edit.png`
+- [ ] "frameshell paint" in the launcher and `qs ipc call editor paintOn clear` (transparent page)

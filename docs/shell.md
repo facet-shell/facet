@@ -298,7 +298,8 @@ without it the shell says so and everything else keeps working). Files: `editor/
 
 "edit" on a screenshot's notification opens it in the same window, without the timeline:
 `b` adds a blur box (blur or pixelate, strength), pictures dragged in from Dolphin go on top,
-`c` crops (drag the frame or its corners). The edit is kept as `<name>.edit.json`, "export"
+`c` crops (drag the frame or its corners), and the drawing tools from Super+P sit docked on the
+left (see Drawing below). The edit is kept as `<name>.edit.json`, "export"
 (Ctrl+S) writes `<name>-edit.png` and the notification copies it as a picture for chats.
 "export & delete original" does the same and moves the original into the trash.
 In Dolphin both editors are under "Open with → frameshell editor" for any picture or video
@@ -316,6 +317,34 @@ grid (kept in `~/.local/state/quickshell/…/media.json`, × takes it out again)
 come from ffmpeg and are cached in `~/.cache/frameshell/media`. Edits and tracks whose file was
 deleted somewhere else (in Dolphin) show up as "clean up N leftovers" next to the filters. Files: `gallery/`,
 `quickshell/.local/bin/frame-media`.
+
+### Drawing
+
+One set of tools in three places: on the screen, in the picture editor and on an empty page.
+Pen, highlighter, line and arrow (Shift: 15° steps), rectangle and ellipse (Shift: square,
+circle), text and eraser (it takes whole shapes), in the theme's colors with four widths,
+undo, redo and clear. The ruler lies on top: drag it, the wheel turns it, and the pen or line
+near its edge follows it. Letters pick a tool: `p` pen, `h` highlighter, `l` line, `a` arrow,
+`r` rectangle, `e` ellipse, `t` text, `x` eraser; Ctrl+Z undoes, Ctrl+Shift+Z redoes.
+
+Super+P draws on the live desktop: a see-through layer over every screen, the toolbar at the
+bottom of the focused one (its dock button moves it to the left). Super+P again (or Esc)
+hides the drawing and gives the screens back; it is still there next time, also after a shell
+restart (`~/.local/state/quickshell/…/draw.json`). Super+Shift+P clears it. The click-through
+button keeps the drawing on screen while mouse and keys go to the windows; only the toolbar
+still takes clicks. With the infinite canvas the drawing lives on the canvas like the windows:
+moving the view moves it, and right drag on the drawing moves the view
+(`qs ipc call draw toggle|show|hide|clear|through`).
+
+In the picture editor the drawing is a layer above the blur boxes and pictures, kept in the
+`.edit.json` with them. The pointer (`v`, Esc) gives the mouse back to the boxes and the crop.
+Export renders the drawing at the picture's full size and lays it over before the crop.
+
+Paint is no app of its own: "new picture" in the media app (paper: theme background, white or
+transparent), "frameshell paint" in the launcher or `qs ipc call editor paint` (`paintOn
+white|clear`) makes an empty 1920×1080 page in `~/Pictures/paintings` and opens it in the
+picture editor with the pen. Ctrl+S exports it like any picture. Files: `draw/` (the engine is
+`DrawEngine.js`), `editor/ImageProject.qml`, `services/Editor.qml`.
 
 ## Settings
 
