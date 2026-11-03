@@ -1,59 +1,252 @@
 # Testing frameshell
 
-A checklist for trying frameshell on CachyOS. The parts that have never run on Linux come
-first. Tick what works; for what does not, note the step, what happened and the output of
-the command next to it.
+A checklist for trying frameshell on a real CachyOS machine. Most of the code has never run
+on Linux, so this is where the bugs turn up. Tick what works. For what does not, note the
+step, what happened and the output of the command under it.
 
 ## Before you start
 
 ```bash
-cd ~/frameshell && git pull
-frame update            # new packages, links, theme files
-frame status            # everything linked? anything missing?
+frame update     # pull every module, relink, re-render the theme
+frame status     # every module linked, nothing missing
 ```
 
-Then log out and in again: idle lock, wallpapers and the clipboard history now start from
-the shell and from Hyprland's start.
+Log out and in once after an update, so Hyprland starts the shell and its helpers anew.
 
 Where to look when something is off:
 
-| What | Where |
+| What | Command |
 |---|---|
-| Quickshell (bar, launcher, lockscreen, …) | `pkill -x qs; qs` in Ghostty shows its output live |
+| the shell (bar, launcher, lockscreen, …) | `qs log`, or `qs log \| grep -i <word>` |
+| helpers, services, login | `journalctl --user -b`, `journalctl -b -p warning` |
 | Hyprland config errors | the red bar at the top, or `hyprctl configerrors` |
-| system and login | `journalctl -b -p warning`, the login screen: `journalctl -b -t frame-greeter -u greetd` |
+| what is installed | `frame status` |
 
-Keep a text console in mind (Ctrl+Alt+F3): it always lets you log in and undo things.
+A text console (Ctrl+Alt+F3) always lets you log in and undo things.
 
-## 1. Lockscreen and idle (no hypridle any more)
+Report on [the board](https://github.com/orgs/frame-shell/projects/1): open an issue in the
+repo of that part with the Bug form and paste the output of the command named for the item.
 
-- [ ] Super+L locks, the password unlocks
-- [ ] Preview then a real lock: `qs ipc call lock preview 8`, type the password, press
-      Super+L within the 8 seconds; the real lock must stay until you type the password again
-- [ ] Idle lock: set `idleLockMinutes: 1` and `idleScreenOffMinutes: 2` in
-      `~/.config/quickshell/config/Config.qml`, wait; it locks after one minute, the screens
-      go off after two, a key brings them back (set the values back afterwards)
+## 1. Install and the frame command
+
+- [ ] On a fresh install: `curl -fsSL https://frame-shell.github.io/install.sh | bash` asks for
+      full or only the shell, then the apps, the layout and the theme; only the picked modules
+      are in `~/.local/share/frameshell/modules`
+- [ ] `frame status` lists every module as linked; `frame add zed` gets one more
+- [ ] An old install made from this repo: `frame update` says frameshell moved and prints the
+      curl line
+- [ ] `frame install --dry-run` shows the steps and changes nothing
+- [ ] `frame theme set` without a name: a menu, ↑↓, typing `sa` jumps to sakura, Esc cancels
+- [ ] Tab completion in a new fish: `frame th<Tab>`, `frame theme set <Tab>`
+- [ ] `frame backup`, then `frame restore latest` puts it back
+- [ ] `frame clean -n` lists every item with its size and deletes nothing; `frame clean` asks
+      for each one (keep packages you use yourself)
+- [ ] `pgrep -a 'hypridle|swaybg|cliphist'` prints nothing; if your own `hyprland.lua` starts
+      one of them, remove that line
+
+## 2. Bar
+
+- [ ] On every screen: workspaces (or the canvas minimap), title, clock, media, CPU, temperature,
+      RAM, volume, keyboard layout
+- [ ] Hovering the clock shows a calendar; hovering the song shows a card with play/pause
+- [ ] Scrolling on the volume changes it in steps of 5 %, the OSD shows it
+- [ ] Media keys (Fn+F7/F8/F9): play/pause, next, previous on whatever plays; with Spotify and a
+      video both open, a second play/pause goes to the same player as the first
+      (`qs ipc call player toggle` does the same)
+- [ ] Updates: a minute after login `↑ N` shows if there are updates; a click opens Ghostty
+      with the update, afterwards the number is gone or smaller
+- [ ] Hold Super for 1.5 s: the hotkey overlay, every bind named (no `__lua …`), it fits a
+      1080p screen; letting go closes it
+- [ ] Lock and unlock: the bar flies up and drops back in
+
+## 3. Launcher
+
+- [ ] Super+Space opens it on the focused screen; typing an app name finds it
+- [ ] Enter on an app that already runs brings its window into view, the row says "running";
+      Shift+Enter starts another one
+- [ ] `= 2*21` copies 42; `> btop` runs in Ghostty; `: reboot` needs Enter twice
+- [ ] `# heart`, Shift+Enter: the emoji lands in a browser text field and in Ghostty
+- [ ] `/ readme` finds files in your home, not in `.cache` or `node_modules`
+- [ ] `t 1m test`: after a minute a notification with sound that stays until snooze or done
+- [ ] `a test <in two minutes, e.g. 14:05>`: the same for alarms, also after Super+Shift+Escape
+      in between
+- [ ] `? yt lofi` opens a YouTube search; `ssh <host>` opens it in Ghostty
+- [ ] `c what is a tarball`, Enter: a thinking line counts seconds, the answer shows as text and
+      code blocks in the launcher's size; select part of it, Ctrl+C copies that part
+      - nothing comes? `claude -p hi` in a terminal must answer; then `qs log | grep -i claude`
+- [ ] Ctrl+Alt+Q types an @ and Ctrl+Alt+E a € in Ghostty, in Zen, in the open launcher and in
+      Vesktop; the layout in the bar stays as it is
+
+## 4. Control center
+
+- [ ] Super+C opens it; wi-fi, bluetooth, silent, stay awake, game mode and mic mute switch
+- [ ] Reboot and off need a second click
+- [ ] system: CPU with its curve, GPU, VRAM, RAM, disk and network move
+- [ ] GoXLR: moving a physical fader moves it on screen, the mute buttons work from here
+      - nothing? `pgrep -a goxlr-daemon` and `curl -s http://localhost:14564/api/get-devices`
+- [ ] GoXLR Mini: a slider for System, the volume in the bar is that channel
+- [ ] app mixer ›: every app that plays or records, with volume and mute; route Spotify to
+      music, it now follows the music fader, and still does after restarting Spotify
+      - no change? `pactl list short sink-inputs` before and after, and `wpctl status`
+- [ ] tasks ›: running apps with CPU and memory; a running game shows as the game, not as
+      Steam; close asks the window to quit, kill (second click) ends the whole app
+
+## 5. Notifications
+
+- [ ] `notify-send hello world`: a popup top right, its timer pauses on hover
+- [ ] `notify-send -u critical test`: stays until you close it
+- [ ] silent in the control center: popups stay away and count on the bell; the bell opens the
+      history
+- [ ] A song change in Spotify: a popup top left
+- [ ] Nothing shows? `busctl --user list | grep Notifications` must name `qs`, not mako, dunst
+      or swaync
+
+## 6. Lockscreen and idle
+
+- [ ] Super+L locks, the password unlocks; the field is only on the screen you were on
+- [ ] Preview then a real lock: `qs ipc call lock preview 8`, type the password, press Super+L
+      within the 8 seconds; the real lock stays until you type the password again
+- [ ] Idle: in the settings app set "lock when idle" to 1 min and "screens off when idle" to
+      2; it locks after one minute, the screens go off after two, a key brings them back (idle
+      lock is off until you set it)
 - [ ] Stay awake in the control center: no idle lock while it is on
 - [ ] `loginctl lock-session` locks
-- [ ] Sleep: `: suspend` in the launcher (or `systemctl suspend`), wake up; the lockscreen is
-      there right away, no flash of the desktop
-      - while it runs, `systemd-inhibit --list` shows a delay lock by frameshell
-      - nothing locks before sleep? `gdbus monitor --system --dest org.freedesktop.login1`
-        must print `PrepareForSleep (true,)` when you suspend
-- [ ] `hypridle` is not running any more (`pgrep -a hypridle` prints nothing); if your own
-      `hyprland.lua` starts it, remove that line
+- [ ] `: suspend` in the launcher, wake up: the lockscreen is there at once, no flash of the
+      desktop
+      - nothing locks before sleep? `systemd-inhibit --list` must show a delay lock by
+        frameshell, and `gdbus monitor --system --dest org.freedesktop.login1` must print
+        `PrepareForSleep (true,)` when you suspend
+- [ ] Wrong password: it says so, the right one works afterwards
+      (`qs log | grep -i -e lock -e pam`)
 
-## 2. Wallpapers (still pictures without swaybg)
+## 7. Login and boot
 
-- [ ] After login the picture you picked is there (`hyprctl layers` lists `qs-wallpaper`)
-- [ ] Super+W, pick another picture: it fades in, no black gap
-- [ ] A video wallpaper plays and is not covered by a picture; switching video → picture
-      → video works
+- [ ] `frame login`, then `frame status` says "Login screen: frameshell greeter"
+- [ ] Without a reboot: Ctrl+Alt+F3, log in, `sudo systemctl restart greetd`; the frameshell login
+      shows and the password logs you in to Hyprland
+      - black screen or the old login? `journalctl -b -t frame-greeter -u greetd`;
+        `frame login remove` brings the distro's greeter back
+- [ ] `frame login auto`, reboot: no greeter, the shell's lockscreen asks for the password; after
+      a logout the greeter is there
+      - an open desktop or a logout loop? `journalctl -b -t frame-start-locked`
+- [ ] `frame boot`: it says whether the plymouth hook and `splash` are there and rebuilds the
+      initramfs without errors
+- [ ] Reboot: the splash is a frame with "frameshell" and a progress line in the theme; with
+      LUKS the password prompt is in that frame
+- [ ] Ctrl+Alt+F3: the console has the theme's colors (`systemctl status frameshell-vtrgb`)
+- [ ] With GRUB: `frame grub`, reboot, the menu is in the theme
+- Back: `frame boot remove`, `frame grub remove`
+
+## 8. Wallpapers
+
+- [ ] After login the picture you picked is there (`hyprctl layers | grep qs-wallpaper`)
+- [ ] Super+W, search and filter, pick another picture: it fades in, no black gap
+- [ ] A video wallpaper plays and is not covered by a picture; video → picture → video works
+      (`pgrep -a 'mpvpaper|linux-wallpaperengine'`)
+- [ ] With Wallpaper Engine: a subscribed Workshop scene shows up and plays
 - [ ] A screen with nothing set shows the theme's background color
-- [ ] Lock and unlock: the video or Wallpaper Engine scene runs again afterwards
-- [ ] `pgrep -a swaybg` prints nothing
+- [ ] Lock and unlock: the video or scene runs again afterwards
+- [ ] `frame wallpaper backend image`: only pictures in the app; `both` brings the rest back
 
-## 3. Clipboard history (frame-clip instead of cliphist)
+## 9. Screenshots
+
+- [ ] Print: drag a region, or click a window (it lights up), Enter takes the whole screen, Esc
+      cancels
+- [ ] Shift+Print takes the focused screen at once
+- [ ] The picture is in `~/Pictures/screenshots` (your XDG pictures folder) and in the clipboard;
+      the notification has open, edit, folder, delete
+- [ ] Open a right-click menu, Print, drag over it: the menu is in the shot
+- [ ] A video playing, Print, wait a few seconds, click: the shot shows the frame from the key
+      press
+- [ ] Two monitors: a region on the second one is cut from the right screen and sharp, and
+      `ls $XDG_RUNTIME_DIR/frame-shot` is empty afterwards
+- [ ] Nothing happens? `qs log | grep -i screenshot`
+
+## 10. Recording and the video editor
+
+- [ ] Super+Shift+R, drag a region: the picker is red, then `● rec 0:01` counts in the bar
+- [ ] Super+Shift+R again (or a click on `● rec`): "recording saved", the file in
+      `~/Videos/recordings` plays
+- [ ] "copy" in the notification, paste in Discord: the video is attached
+- [ ] Two channels on in the audio panel: next to the video a `.tracks` folder with one `.flac`
+      per channel and `tracks.json` (`ls ~/Videos/recordings/*.tracks`)
+      - no sound? `pactl list short sinks` while recording shows the mix sink
+- [ ] "edit" in the notification (needs `qt6-multimedia-ffmpeg`): the video and one waveform row
+      per channel; space plays with sound
+- [ ] `c` at two places, click the middle piece, `del`: it is gone and playback jumps over it
+- [ ] `b`, drag the box over something and play: it is blurred; "pixelate" turns it into blocks
+- [ ] Drag a picture from Dolphin onto the preview, move it, pull its corner
+- [ ] A channel that is off: drag "sync" until the mic matches the picture
+- [ ] Mute a channel, "export": `<name>-edit.mp4` has the cuts, blur and picture and no muted
+      channel (if not: the error in the inspector, or `qs log | grep -i editor`)
+- [ ] Open a recording and close it without changing anything: no `.edit.json` appears
+- [ ] "export & delete raw", "yes": `<name>-edit.mp4` stays, the recording and its `.tracks`
+      folder are in the trash
+
+## 11. Media app and picture editor
+
+- [ ] Super+G: screenshots and recordings in one grid, videos with a thumbnail and their length
+- [ ] Ctrl+click three, "delete 3", "yes, delete": gone from the grid, in the trash with their
+      `.tracks` folders (Dolphin: trash:/)
+- [ ] Drop a folder with pictures on the window: they show up; × under the grid takes it out
+- [ ] Delete a recording in Dolphin, Super+G: "clean up 2 leftovers" takes its edit and tracks
+- [ ] Screenshot, "edit": `b`, drag the box over a name, `c` and pull a corner, Ctrl+S:
+      `<name>-edit.png` is blurred and cropped
+- [ ] Dolphin, right click a picture or video: "Open with → frameshell editor"
+
+## 12. Settings app
+
+- [ ] Super+, (and "settings ›" in the control center): the window with seven sections
+- [ ] look: another theme changes the whole desktop; "canvas", then "tiling"
+- [ ] shell: change one value; `cat ~/.config/frameshell/shell.json` shows only that one, and
+      "default" takes it out again
+- [ ] launcher: Claude off, `c ` in the launcher no longer asks Claude
+- [ ] sound: another output, music moves there
+- [ ] apps: "add" on a missing module opens a terminal with `frame add`
+- [ ] system: `frame status` opens in a terminal
+
+## 13. Canvas layout and overview
+
+Switch with `frame layout canvas`.
+
+- [ ] Super+Ctrl+arrows moves the view, the minimap in the bar follows; a click on the minimap
+      looks there
+- [ ] A new window opens in a free spot in view; a dialog stays where its app puts it
+- [ ] Super+Ctrl+G tidies into a grid, Super+Ctrl+H goes back to the start, Super+Ctrl+F is
+      fullscreen on and off on the right screen
+- [ ] An app started over a fullscreen window ends the fullscreen
+- [ ] Super+wheel down: the overview of every monitor with live previews; the wheel zooms around
+      the cursor, a click on a window goes to it, Esc goes back without changes
+- [ ] In the overview: drag a window into the other screen's outline, it moves to that monitor;
+      F makes the window under the cursor fullscreen, Q closes it
+- [ ] Two monitors: a click on the second screen's minimap moves that screen, not the first
+- [ ] `hyprctl reload`: the view stays where it was (`cat ~/.local/state/frameshell/canvas`)
+- [ ] `frame layout tiling`: dialogs come back on screen, big windows tile again
+
+## 14. Game mode and Super+Tab
+
+- [ ] Start a Steam game: it gets its own workspace and the screen follows; after a few seconds
+      "game mode on", animations and blur off, popups quiet, the wallpaper paused
+      - nothing happens? `hyprctl clients | grep -e class -e workspace` while it runs; a Steam
+        game shows `steam_app_<number>`, other games go into "other games" in the settings app
+- [ ] Super+Tab goes to the desktop and back to the game
+- [ ] Two games open: Alt+Tab goes from one to the other; Enter on a running game in the
+      launcher shows it
+- [ ] An app started while the game is on screen opens on the desktop, and the screen follows
+- [ ] Quit the game: "game mode off", everything as before
+- [ ] With a GoXLR profile set under games: it is loaded while playing, the old one afterwards
+
+## 15. Watchdog
+
+- [ ] `pgrep -af frame-shell-watchdog` shows one
+- [ ] Super+Shift+Escape: the bar is gone for a moment and comes back; a new file in
+      `~/.local/state/frameshell/hangs`
+- [ ] Fake a hang: `kill -STOP $(pgrep -xo qs)`; within about half a minute a new shell is up
+- [ ] The same while locked (from Ctrl+Alt+F3, then back): the screen never opens, the new
+      lockscreen takes the password
+- [ ] Nothing restarts? `journalctl -b -t frame-shell-watchdog`
+
+## 16. Clipboard
 
 - [ ] `pgrep -af "wl-paste --watch"` shows `frame-clip store`
 - [ ] Copy some text, then a picture (a screenshot); Super+V lists both, the picture with a
@@ -61,128 +254,66 @@ Keep a text console in mind (Ctrl+Alt+F3): it always lets you log in and undo th
 - [ ] Enter copies an entry back (paste it somewhere), Shift+Enter deletes it
 - [ ] Copy the same text twice: it shows once, at the top
 - [ ] A copy from a password manager (KeePassXC, Bitwarden) does not show up
-- [ ] Files: `ls ~/.cache/frameshell/clipboard`, at most 100
+- [ ] `ls ~/.cache/frameshell/clipboard` holds at most 100
 
-## 4. Launcher
+## 17. Discord
 
-- [ ] `# heart`, Shift+Enter: the emoji lands in a browser text field and in Ghostty
-- [ ] `/ readme` finds files in your home, not in `.cache` or `node_modules`
-- [ ] `t 1m test`: after a minute a notification with sound that stays until snooze or done
-- [ ] `a test <in two minutes, e.g. 14:05>`: same for alarms
-- [ ] Updates: a minute after login `↑ N` shows in the bar if there are updates; a click
-      opens Ghostty with the update; afterwards the number is gone or smaller
-- [ ] `s`, `d`, `c`, `;`, `?`, `ssh` still do what docs/shell.md says
+- [ ] After `frame update vencord`, `~/.local/share/frameshell/vencord` has no `node_modules` and
+      Vesktop has the theme and ShellBridge
+- [ ] A DM while Vesktop is not focused: one shell popup with "open" (no second one from Vesktop)
+- [ ] A group DM names the group; a mention in a server names server and channel
+- [ ] Someone joins or leaves your voice channel: a popup; "Watch in shell" on a voice channel
+      gives one with "join"
+- [ ] An incoming call: accept and decline work; a call you miss turns into "call back"
+- [ ] Mute in Discord: a popup with "unmute"
+- [ ] Launcher: `d` lists the last chats, `d anna` opens the DM, `d msg anna hi` sends it,
+      `d call anna` rings, `d reply ok` goes to the last person you wrote to
+- [ ] Nothing reaches the shell? `ls $XDG_RUNTIME_DIR/qs-discord.sock`, and Vesktop's DevTools
+      (Ctrl+Shift+I) console for ShellBridge lines
 
-## 5. Game mode
+## 18. Spotify
 
-- [ ] Start a Steam game: after a few seconds "game mode on", animations and blur off,
-      popups quiet, the wallpaper paused
-      - nothing happens? `hyprctl clients | grep class` while the game runs; a Steam game
-        shows `steam_app_<number>`, other games go into `gameClasses` in Config.qml
-- [ ] Quit the game: "game mode off", everything as before
-- [ ] With `goxlrGameProfile` set: the GoXLR loads that profile and the old one afterwards
-      (never tried on a real GoXLR)
+- [ ] `frame install spicetify`, restart Spotify: the theme is on
+- [ ] `s daft punk`: tracks, artists, albums, playlists; the info pane says "via spotify client"
+      - "via mpris"? `frame update spicetify`, restart Spotify; with `spicetify enable-devtools`
+        the console must say `[frameshell] connected to the shell`
+- [ ] Enter plays, Shift+Enter queues; `s next`, `s f 30`, `s 1:10`, `s like` do what they say
+- [ ] Optional, the Web API: `frame spotify login` (see [docs/spotify.md](docs/spotify.md)), then
+      `frame spotify status` prints your name
 
-## 5b. Screenshots
+## 19. Steam
 
-- [ ] Open a right-click menu, Print, drag a region over it: the menu is in the shot
-- [ ] A video playing, Print, wait a few seconds, click: the shot shows the frame from the key
-      press, not from the click
-- [ ] Two monitors: a region on the second one is cut from the right screen and sharp
-      (`ls $XDG_RUNTIME_DIR/frame-shot` is empty afterwards)
+- [ ] `frame install steam`, start Steam: the Frameshell theme is on, the library in the theme's
+      colors, no minimize or maximize buttons
+- [ ] A friend message: the popup comes from the shell, not from Steam
+- [ ] A game invite stays until handled; an achievement and a finished download show as shell
+      popups
+- [ ] Nothing reaches the shell? `grep "frameshell:" ~/.local/share/Steam/logs/console-linux.txt`
+      must show `hooked BShowToast`; `frame status` says when Millennium is not hooked in
 
-## 6. Screen recording
+## 20. Keyboard (AULA F75)
 
-- [ ] Super+Shift+R, drag a region: the picker is red, then `● rec 0:01` counts in the bar
-- [ ] Super+Shift+R again (or a click on `● rec`): "recording saved", the file in
-      `~/Videos/recordings` (or your XDG videos folder) plays
-- [ ] "copy" in the notification, then paste in Discord: the video is attached
-- [ ] With two channels on in the audio panel: next to the video a `.tracks` folder with one
-      `.flac` per channel and `tracks.json` (`ls ~/Videos/recordings/*.tracks`)
-- [ ] "edit" in the notification (needs `sudo pacman -S qt6-multimedia-ffmpeg`): the editor
-      window shows the video and one waveform row per channel; space plays with sound
-- [ ] `c` at two places, click the middle piece, `del`: it is gone and playback jumps over it
-- [ ] `b`, drag the box over something and play: it is blurred; "pixelate" turns it into blocks
-- [ ] Drag a picture from Dolphin onto the preview, move it, pull its corner
-- [ ] Mute a channel, "export": `<name>-edit.mp4` plays with the cuts, blur and picture and
-      without the muted channel. If not: the error in the inspector, or `qs log | grep -i editor`
-- [ ] A channel that is off: drag "sync" until the mic matches the picture
-- [ ] Screenshot, "edit" in the notification: the picture editor; `b`, drag the box over a
-      name, `c` and pull a corner, Ctrl+S: `<name>-edit.png` is blurred and cropped
-- [ ] Super+G: screenshots and recordings in one grid, videos with a thumbnail and their length
-- [ ] Ctrl+click three, "delete 3", "yes, delete": gone from the grid, in the trash with their
-      `.tracks` folders (Dolphin: trash:/)
-- [ ] Drop a folder with pictures on the media window: they show up; × under the grid takes it out
-- [ ] Dolphin, right click a video: "Open with → frameshell editor"
-- [ ] Open a recording in the editor and close it without changing anything: no `.edit.json`
-      appears next to it
-- [ ] "export & delete raw", "yes": the editor closes, `<name>-edit.mp4` stays, the recording
-      and its `.tracks` folder are in the trash
-- [ ] Delete a recording in Dolphin, Super+G: "clean up 2 leftovers" takes its edit and tracks
+Nothing has been sent to the board yet. Go in the order of
+[docs/keyboard.md](docs/keyboard.md#install-and-first-test) and stop at the first surprise.
 
-## 7. GTK apps
+- [ ] `frame install keyboard`, replug: `frame-keyboard list` marks the configuration interface
+- [ ] `frame-keyboard info --live` shows device id `03 00 00 00 00 cd`
+- [ ] `frame-keyboard backup --live` saves to `~/.local/state/frameshell/keyboard/`
+- [ ] `frame-keyboard highlight --live q w e --seconds 3` lights them, the old effect comes back
+- [ ] Super+K: the map with the lighting, fn keys and colors tabs; apply one effect
+- [ ] Hold Super: the keys that do something with it light up, letting go brings the effect back
+- [ ] `frame theme set matcha`: the keys take the theme colors
 
-- [ ] `frame install gtk` (part of the core setup on a new install)
-- [ ] pavucontrol, a file dialog (Zen → save a page) or Nautilus: dark, the theme's colors,
-      square corners, JetBrains Mono
-- [ ] `gsettings get org.gnome.desktop.interface color-scheme` says `'prefer-dark'`
-- [ ] `frame theme set matcha`, restart the app: green
+## 21. Themes in the apps
 
-## 8. Boot splash and console colors
-
-- [ ] `frame boot`: it says whether the plymouth hook and `splash` are there, rebuilds the
-      initramfs without errors
-- [ ] Reboot: the splash is a frame with "frameshell", a progress line, in the theme
-- [ ] With a LUKS disk: the password prompt is in that frame
-- [ ] Ctrl+Alt+F3: the console has the theme's colors; `systemctl status frameshell-vtrgb`
-      is green
-- Back: `frame boot remove`
-
-## 9. Login screen
-
-- [ ] `frame login`, then `frame status` says "Login screen: frameshell greeter"
-- [ ] Try it without a reboot: Ctrl+Alt+F3, log in, `sudo systemctl restart greetd`
-- [ ] The frameshell login shows, the password logs you in to Hyprland
-- [ ] A wrong password says so, the right one works afterwards
-- Black screen or the old login? `journalctl -b -t frame-greeter -u greetd`, and
-  `frame login remove` brings the distro's greeter back
-
-## 9b. Settings
-
-- [ ] Super+, (and "settings ›" in the control center): the window with seven sections
-- [ ] look: click another theme, the whole desktop changes; click "canvas", then "tiling"
-- [ ] shell: "lock when idle" to 1 min, wait: the lockscreen comes; "default" puts it back
-      (`cat ~/.config/frameshell/shell.json` shows only what you changed)
-- [ ] sound: pick another output, music moves there
-- [ ] apps: "add" on a module that is missing opens a terminal with `frame add`
-
-## 10. Steam
-
-- [ ] `frame install steam`, start Steam: the Frameshell theme is on (Steam → Millennium)
-- [ ] A friend message or a friend coming online: the popup comes from the shell, not
-      from Steam
-- [ ] An achievement or a finished download shows as a shell notification
-
-## 11. Canvas layout (only with `frame layout canvas`)
-
-- [ ] Super+Ctrl+arrows moves the view, the minimap in the bar follows
-- [ ] Super+wheel down: the overview of every monitor; a click there goes to that spot
-- [ ] Two monitors: a click on the minimap of the second screen moves that screen, not
-      the first
-- [ ] Super+Ctrl+F: fullscreen on and off on the right screen
-- [ ] `frame layout tiling`: dialogs come back on screen, big windows tile again
-
-## 12. The frame command
-
-- [ ] `frame theme set` without a name: the menu, ↑↓, typing `sa` jumps to sakura, Esc
-      cancels
-- [ ] Tab completion in a new fish: `frame th<Tab>`, `frame theme set <Tab>`
-- [ ] `frame clean -n` goes through every item with its size and deletes nothing, then
-      `frame clean` for real; keep the packages you use yourself (fd, for example)
-- [ ] The Vesktop build: after `frame update vencord`, `~/.local/share/frameshell/vencord`
-      has no `node_modules`, Vesktop still has ShellBridge (a DM shows as a shell popup)
-
-## 13. Zen
-
-- [ ] Zen opens the frameshell start page (clock, search); `yt lofi` in it searches
-      YouTube
+- [ ] `frame theme set matcha`: bar, window borders and Zed change at once; a new Ghostty window
+      and a new fish are green; `frame theme check` prints nothing
+- [ ] GTK: pavucontrol or a file dialog (Zen → save a page) is dark, square, JetBrains Mono;
+      `gsettings get org.gnome.desktop.interface color-scheme` says `'prefer-dark'`
+- [ ] Zed (Super+Shift+E): the theme, the file tree on the left, Ctrl+J opens fish; language
+      extensions install on the first start
+- [ ] Zen (Super+B): square corners, the frameshell start page (clock, search); `yt lofi` in it
+      searches YouTube
+- [ ] Dolphin (Super+E): the theme's colors and JetBrains Mono after one logout
+      (`echo $QT_QPA_PLATFORMTHEME` says `qt6ct`); "Open with" lists apps
+- [ ] With a GoXLR: `frame goxlr` lights the faders and buttons in the theme
