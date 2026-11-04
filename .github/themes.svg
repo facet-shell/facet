@@ -4,9 +4,9 @@
 <defs><radialGradient id="glow" cx="0.7" cy="0.65" r="0.75"><stop offset="0" class="c-primary" stop-opacity="0.35"/><stop offset="1" class="c-primary" stop-opacity="0"/></radialGradient>
 <clipPath id="card"><rect width="1280" height="580" rx="22"/></clipPath></defs>
 <g clip-path="url(#card)"><rect width="1280" height="580" class="f-bg"/>
-<rect x="40" y="52" width="450" height="456" class="s-surface2" stroke-width="1.5"/><rect x="54" y="43" width="124.39999999999999" height="18" class="f-bg"/><text x="61" y="57" class="f-primary">~/frameshell</text>
+<rect x="40" y="52" width="450" height="456" class="s-surface2" stroke-width="1.5"/><rect x="54" y="43" width="78.39999999999999" height="18" class="f-bg"/><text x="61" y="57" class="f-primary">ghostty</text>
 <g class="cmd0">
-<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="120"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan><tspan class="f-text">facet theme set periwinkle</tspan></text>
 </g><g class="out0">
 <text x="64" y="162" class="b"><tspan class="f-primary">● </tspan><tspan class="f-text">Theme Periwinkle</tspan></text>
@@ -15,13 +15,13 @@
 <text x="64" y="240"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Hyprland window colors reloaded</tspan></text>
 <text x="64" y="266"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Spotify theme applied</tspan></text>
 <text x="64" y="292"><tspan class="f-muted">    new shells and Ghostty windows follow</tspan></text>
-<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">frameshell now uses Periwinkle.</tspan></text>
-<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">facet now uses Periwinkle.</tspan></text>
+<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="396"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan></text>
 <rect x="104" y="383" width="9" height="17" class="f-secondary"/>
 </g>
 <g class="cmd1">
-<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="120"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan><tspan class="f-text">facet theme set sakura</tspan></text>
 </g><g class="out1">
 <text x="64" y="162" class="b"><tspan class="f-primary">● </tspan><tspan class="f-text">Theme Sakura</tspan></text>
@@ -30,13 +30,13 @@
 <text x="64" y="240"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Hyprland window colors reloaded</tspan></text>
 <text x="64" y="266"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Spotify theme applied</tspan></text>
 <text x="64" y="292"><tspan class="f-muted">    new shells and Ghostty windows follow</tspan></text>
-<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">frameshell now uses Sakura.</tspan></text>
-<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">facet now uses Sakura.</tspan></text>
+<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="396"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan></text>
 <rect x="104" y="383" width="9" height="17" class="f-secondary"/>
 </g>
 <g class="cmd2">
-<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="120"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan><tspan class="f-text">facet theme set matcha</tspan></text>
 </g><g class="out2">
 <text x="64" y="162" class="b"><tspan class="f-primary">● </tspan><tspan class="f-text">Theme Matcha</tspan></text>
@@ -45,13 +45,13 @@
 <text x="64" y="240"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Hyprland window colors reloaded</tspan></text>
 <text x="64" y="266"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Spotify theme applied</tspan></text>
 <text x="64" y="292"><tspan class="f-muted">    new shells and Ghostty windows follow</tspan></text>
-<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">frameshell now uses Matcha.</tspan></text>
-<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">facet now uses Matcha.</tspan></text>
+<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="396"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan></text>
 <rect x="104" y="383" width="9" height="17" class="f-secondary"/>
 </g>
 <g class="cmd3">
-<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="120"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan><tspan class="f-text">facet theme set ember</tspan></text>
 </g><g class="out3">
 <text x="64" y="162" class="b"><tspan class="f-primary">● </tspan><tspan class="f-text">Theme Ember</tspan></text>
@@ -60,13 +60,13 @@
 <text x="64" y="240"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Hyprland window colors reloaded</tspan></text>
 <text x="64" y="266"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Spotify theme applied</tspan></text>
 <text x="64" y="292"><tspan class="f-muted">    new shells and Ghostty windows follow</tspan></text>
-<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">frameshell now uses Ember.</tspan></text>
-<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">facet now uses Ember.</tspan></text>
+<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="396"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan></text>
 <rect x="104" y="383" width="9" height="17" class="f-secondary"/>
 </g>
 <g class="cmd4">
-<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="120"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan><tspan class="f-text">facet theme set lagoon</tspan></text>
 </g><g class="out4">
 <text x="64" y="162" class="b"><tspan class="f-primary">● </tspan><tspan class="f-text">Theme Lagoon</tspan></text>
@@ -75,13 +75,13 @@
 <text x="64" y="240"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Hyprland window colors reloaded</tspan></text>
 <text x="64" y="266"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Spotify theme applied</tspan></text>
 <text x="64" y="292"><tspan class="f-muted">    new shells and Ghostty windows follow</tspan></text>
-<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">frameshell now uses Lagoon.</tspan></text>
-<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">facet now uses Lagoon.</tspan></text>
+<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="396"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan></text>
 <rect x="104" y="383" width="9" height="17" class="f-secondary"/>
 </g>
 <g class="cmd5">
-<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="96"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="120"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan><tspan class="f-text">facet theme set mono</tspan></text>
 </g><g class="out5">
 <text x="64" y="162" class="b"><tspan class="f-primary">● </tspan><tspan class="f-text">Theme Mono</tspan></text>
@@ -90,8 +90,8 @@
 <text x="64" y="240"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Hyprland window colors reloaded</tspan></text>
 <text x="64" y="266"><tspan class="f-ok">  ✓ </tspan><tspan class="f-textDim">Spotify theme applied</tspan></text>
 <text x="64" y="292"><tspan class="f-muted">    new shells and Ghostty windows follow</tspan></text>
-<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">frameshell now uses Mono.</tspan></text>
-<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~/frameshell</tspan><tspan class="f-frame">]─[</tspan><tspan class="f-primary">main</tspan><tspan class="f-frame">]</tspan></text>
+<text x="64" y="330"><tspan class="f-ok">Done. </tspan><tspan class="f-textDim">facet now uses Mono.</tspan></text>
+<text x="64" y="372"><tspan class="f-frame">┌[</tspan><tspan class="f-secondary">~</tspan><tspan class="f-frame">]</tspan></text>
 <text x="64" y="396"><tspan class="f-frame">└─</tspan><tspan class="f-primary">❯ </tspan></text>
 <rect x="104" y="383" width="9" height="17" class="f-secondary"/>
 </g>
@@ -121,7 +121,7 @@
 <rect x="530" y="110" width="330" height="378" class="f-bg" fill-opacity="0.85"/><rect x="530" y="110" width="330" height="378" class="s-primary" stroke-width="1.5"/><rect x="544" y="101" width="78.39999999999999" height="18" class="f-bg"/><text x="551" y="115" class="f-primary">ghostty</text>
 <rect x="546" y="136" width="92" height="92" class="s-frame" stroke-dasharray="4 3"/>
 <text x="592" y="186" text-anchor="middle" class="f-muted" style="font-size:11px">logo.png</text>
-<text x="654" y="150"><tspan class="f-secondary">vxnsin</tspan><tspan class="f-muted">@</tspan><tspan class="f-primary">frameshell</tspan></text>
+<text x="654" y="150"><tspan class="f-secondary">vxnsin</tspan><tspan class="f-muted">@</tspan><tspan class="f-primary">facet</tspan></text>
 <text x="654" y="174"><tspan class="f-primary">os     </tspan><tspan class="f-textDim">CachyOS</tspan></text>
 <text x="654" y="194"><tspan class="f-primary">wm     </tspan><tspan class="f-textDim">Hyprland</tspan></text>
 <text x="654" y="214"><tspan class="f-primary">shell  </tspan><tspan class="f-textDim">fish</tspan></text>

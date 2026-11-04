@@ -6,8 +6,8 @@
 <rect x="44" y="20" width="96" height="16" fill="#0b0c1f"/><text x="52" y="33" fill="#5d6fe8">ghostty</text>
 <text x="48" y="70" class="l0"><tspan fill="#545b96">┌[</tspan><tspan fill="#93a4f7">~</tspan><tspan fill="#545b96">]</tspan></text>
 <text x="48" y="91" class="l1"><tspan fill="#545b96">└─</tspan><tspan fill="#5d6fe8">❯ </tspan><tspan fill="#e1e4ff">curl -fsSL https://facet-shell.github.io/install.sh | bash</tspan></text>
-<text x="48" y="133" class="l3"><tspan fill="#5d6fe8">  frame  </tspan><tspan fill="#8086b8">frameshell · CachyOS · Hyprland</tspan></text>
-<text x="48" y="154" class="l4"><tspan fill="#8086b8">  Packages: ghostty fish starship fastfetch spicetify vencord quickshell hypr wallpaper zed dolphin zen</tspan></text>
+<text x="48" y="133" class="l3"><tspan fill="#5d6fe8">  facet  </tspan><tspan fill="#8086b8">CachyOS · Hyprland</tspan></text>
+<text x="48" y="154" class="l4"><tspan fill="#8086b8">  Packages: ghostty fish starship fastfetch spicetify vencord quickshell hypr wallpaper tui gtk zed dolphin zen</tspan></text>
 <text x="48" y="175" class="l5"><tspan fill="#e1e4ff">  Install and link these? [Y/n] y</tspan></text>
 <text x="48" y="196" class="l6"><tspan fill="#5d6fe8">● </tspan><tspan fill="#e1e4ff">Dependencies</tspan></text>
 <text x="48" y="217" class="l7"><tspan fill="#8086b8">  Missing: stow ghostty starship chafa spicetify-cli vesktop quickshell zed dolphin zen-browser-bin …</tspan></text>
@@ -22,8 +22,8 @@
 <text x="48" y="406" class="l16"><tspan fill="#e1e4ff">  Turn them off? [Y/n] y</tspan></text>
 <text x="48" y="427" class="l17"><tspan fill="#6ee0b6">  ✓ </tspan><tspan fill="#e1e4ff">Turned off: mako (facet restore brings them back)</tspan></text>
 <text x="48" y="448" class="l18"><tspan fill="#5d6fe8">● </tspan><tspan fill="#e1e4ff">hypr</tspan></text>
-<text x="48" y="469" class="l19"><tspan fill="#6ee0b6">  ✓ </tspan><tspan fill="#e1e4ff">Added to hyprland.conf: source = ~/.config/hypr/frame/shell.conf</tspan></text>
-<text x="48" y="490" class="l20"><tspan fill="#5d6fe8">● </tspan><tspan fill="#e1e4ff">frame command</tspan></text>
-<text x="48" y="511" class="l21"><tspan fill="#6ee0b6">  ✓ </tspan><tspan fill="#e1e4ff">frame is now available as a command (~/.local/bin/frame)</tspan></text>
+<text x="48" y="469" class="l19"><tspan fill="#6ee0b6">  ✓ </tspan><tspan fill="#e1e4ff">Added to hyprland.lua: require("frame/shell")</tspan></text>
+<text x="48" y="490" class="l20"><tspan fill="#5d6fe8">● </tspan><tspan fill="#e1e4ff">facet command</tspan></text>
+<text x="48" y="511" class="l21"><tspan fill="#6ee0b6">  ✓ </tspan><tspan fill="#e1e4ff">facet is now available as a command (~/.local/bin/facet)</tspan></text>
 <text x="48" y="553" class="l23"><tspan fill="#6ee0b6">Done. </tspan><tspan fill="#e1e4ff">Open a new terminal to see the changes.</tspan></text>
 </g></svg>

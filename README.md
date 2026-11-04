@@ -2,9 +2,15 @@
   <img src=".github/banner.svg" alt="facet" width="100%">
 </p>
 
-A desktop for CachyOS and Hyprland that looks like a terminal: square frames, one
-monospace font and the same colors in every app. It started as my dotfiles and grew
-into its own shell.
+A desktop for CachyOS and Hyprland with the same colors in every app. It comes in two
+styles: tui (square frames, one monospace font, like a terminal) and bloom (a rounded frame
+around the screen, panels sliding out of its edges, Material You colors), and six themes for
+the colors. It started as my dotfiles and grew into its own shell. Website:
+[facet-shell.github.io](https://facet-shell.github.io).
+
+<p align="center">
+  <img src=".github/styles.svg" alt="facet style switching the desktop from tui to bloom" width="100%">
+</p>
 
 <p align="center">
   <img src=".github/themes.svg" alt="facet theme set switching through the six themes" width="100%">
@@ -71,7 +77,7 @@ part is its own repo here, and this one holds the docs.
 
 ```bash
 facet theme set sakura   # periwinkle, sakura, matcha, ember, lagoon, mono
-facet style tui          # the look: tui today, bloom soon; theme is its colors
+facet style bloom        # tui or bloom (bloom is being built); the theme stays
 facet update             # pull and apply everything again
 facet status             # what is linked and what is missing
 facet login              # the lockscreen look as the login screen
