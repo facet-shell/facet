@@ -1,6 +1,6 @@
 // Writes the animated README previews from the theme files:
-//   .github/themes.svg   `frame theme set` in a terminal, a small desktop recoloring beside it
-//   .github/install.svg  a `frame install` run, line by line
+//   .github/themes.svg   `facet theme set` in a terminal, a small desktop recoloring beside it
+//   .github/install.svg  a `facet install` run, line by line
 // Run from the repo root: node .github/scripts/previews.js
 // Plain SVG with CSS animations, so GitHub plays them inside <img> without any script.
 const fs = require('fs');
@@ -59,7 +59,7 @@ function themesSvg() {
 
   const o = [];
   o.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-labelledby="t">`);
-  o.push(`<title id="t">frame theme set: the desktop in all six themes</title>`);
+  o.push(`<title id="t">facet theme set: the desktop in all six themes</title>`);
   o.push(`<style>${css}</style>`);
   o.push(`<defs><radialGradient id="glow" cx="0.7" cy="0.65" r="0.75"><stop offset="0" class="c-primary" stop-opacity="0.35"/><stop offset="1" class="c-primary" stop-opacity="0"/></radialGradient>`);
   o.push(`<clipPath id="card"><rect width="${W}" height="${H}" rx="22"/></clipPath></defs>`);
@@ -86,7 +86,7 @@ function themesSvg() {
     const name = t.name;
     o.push(`<g class="cmd${i}">`);
     o.push(line(tx, 96, [['frame', '┌['], ['secondary', '~/frameshell'], ['frame', ']─['], ['primary', 'main'], ['frame', ']']]));
-    o.push(line(tx, 120, [['frame', '└─'], ['primary', '❯ '], ['text', `frame theme set ${t.id}`]]));
+    o.push(line(tx, 120, [['frame', '└─'], ['primary', '❯ '], ['text', `facet theme set ${t.id}`]]));
     o.push(`</g><g class="out${i}">`);
     o.push(line(tx, 162, [['primary', '● '], ['text', `Theme ${name}`]], 'b'));
     o.push(line(tx, 188, [['warn', '  ↻ '], ['textDim', '13 color files written']]));
@@ -161,13 +161,13 @@ function themesSvg() {
 }
 
 // ── Install run ──────────────────────────────────────────────
-// Output of a simulated `frame install` on a fresh CachyOS home, shortened
+// Output of a simulated `facet install` on a fresh CachyOS home, shortened
 
 function installSvg() {
   const c = themes[0].colors;
   const lines = [
     [['frame', '┌['], ['secondary', '~'], ['frame', ']']],
-    [['frame', '└─'], ['primary', '❯ '], ['text', 'curl -fsSL https://frame-shell.github.io/install.sh | bash']],
+    [['frame', '└─'], ['primary', '❯ '], ['text', 'curl -fsSL https://facet-shell.github.io/install.sh | bash']],
     [],
     [['primary', '  frame  '], ['muted', 'frameshell · CachyOS · Hyprland']],
     [['muted', '  Packages: ghostty fish starship fastfetch spicetify vencord quickshell hypr wallpaper zed dolphin zen']],
@@ -175,7 +175,7 @@ function installSvg() {
     [['primary', '● '], ['text', 'Dependencies']],
     [['muted', '  Missing: stow ghostty starship chafa spicetify-cli vesktop quickshell zed dolphin zen-browser-bin …']],
     [['primary', '● '], ['text', 'Theme']],
-    [['text', '  Which theme? (switch any time: frame theme set <name>)']],
+    [['text', '  Which theme? (switch any time: facet theme set <name>)']],
     [['primary', '    1 '], ['text', 'periwinkle  '], ['muted', 'blue-violet   '], ['primary', '2 '], ['text', 'ember  '], ['muted', 'orange   '], ['primary', '3 '], ['text', 'lagoon  '], ['muted', 'teal   …']],
     [['text', '  Pick 1-6 [1] 1']],
     [['ok', '  ✓ '], ['text', 'Theme Periwinkle: 13 color files, 13 rewritten']],
@@ -183,7 +183,7 @@ function installSvg() {
     [['ok', '  ✓ '], ['text', 'Config linked']],
     [['warn', '  ! '], ['text', 'Other notification daemons found: mako']],
     [['text', '  Turn them off? [Y/n] y']],
-    [['ok', '  ✓ '], ['text', 'Turned off: mako (frame restore brings them back)']],
+    [['ok', '  ✓ '], ['text', 'Turned off: mako (facet restore brings them back)']],
     [['primary', '● '], ['text', 'hypr']],
     [['ok', '  ✓ '], ['text', 'Added to hyprland.conf: source = ~/.config/hypr/frame/shell.conf']],
     [['primary', '● '], ['text', 'frame command']],
@@ -206,7 +206,7 @@ function installSvg() {
   });
   const o = [];
   o.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-labelledby="t">`);
-  o.push(`<title id="t">frame install on a fresh CachyOS</title><style>${css}</style>`);
+  o.push(`<title id="t">facet install on a fresh CachyOS</title><style>${css}</style>`);
   o.push(`<clipPath id="card"><rect width="${W}" height="${H}" rx="22"/></clipPath><g clip-path="url(#card)">`);
   o.push(`<rect width="${W}" height="${H}" fill="${c.bg}"/>`);
   o.push(`<rect x="28" y="28" width="${W - 56}" height="${H - 56}" fill="none" stroke="${c.surface2}" stroke-width="1.5"/>`);

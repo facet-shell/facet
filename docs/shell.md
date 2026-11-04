@@ -78,8 +78,8 @@ engines, the file search folder and the snooze length.
 ## Infinite canvas
 
 Instead of tiling into workspaces, every window can float on one endless plane and the
-screen is a view you move over it. Pick it in `frame install` or switch with
-`frame layout canvas` (and back with `frame layout tiling`); Hyprland reloads by itself.
+screen is a view you move over it. Pick it in `facet install` or switch with
+`facet layout canvas` (and back with `facet layout tiling`); Hyprland reloads by itself.
 
 | Key | |
 |---|---|
@@ -132,7 +132,7 @@ Two things show up only when they matter: `● rec 0:42` while a screen recordin
 (click stops it), and `↑ 12` when there are package updates (pacman against a copy of its
 databases in /tmp, and paru or yay, a minute after start and every 30 minutes; "(3 aur)"
 counts the AUR ones). A click
-on the number opens Ghostty with the update and `frame update` afterwards, and the count
+on the number opens Ghostty with the update and `facet update` afterwards, and the count
 is checked again when that window closes.
 
 **Game mode** switches itself on while a game runs: Steam games (window class
@@ -194,8 +194,8 @@ Hyprland also runs at login (`frame-wallpaper apply`).
 | `image` | only still images, lowest power use |
 
 Folders: `~/Pictures/wallpapers` and `assets/wallpapers`; Workshop items come from
-`~/.local/share/Steam/steamapps/workshop/content/431960`. `frame install wallpaper` asks for
-the backend once; `frame wallpaper backend both|mpv|image` changes it later. Everything is
+`~/.local/share/Steam/steamapps/workshop/content/431960`. `facet install wallpaper` asks for
+the backend once; `facet wallpaper backend both|mpv|image` changes it later. Everything is
 kept in `~/.local/state/frameshell/wallpaper.json`. A screen without a wallpaper shows the
 theme's background color. Workshop items linux-wallpaperengine cannot show are left out:
 "web" ones (HTML), presets (only settings for another wallpaper) and gif scenes. The
@@ -257,10 +257,10 @@ By default it shows while Discord is on no screen, and joins, leaves and your mu
 it instead of a popup; the look (list, compact, only who talks), size and dimming are under
 notifications in the settings app.
 
-`frame install vencord` sets it up: it clones Vencord to `~/.local/share/frameshell/vencord`,
+`facet install vencord` sets it up: it clones Vencord to `~/.local/share/frameshell/vencord`,
 adds ShellBridge, builds it with pnpm, points Vesktop at that build (`vencordDir` in
 `~/.config/vesktop/state.json`) and turns on theme and plugin (close Vesktop for that step).
-`frame update` rebuilds only when Vencord or the plugin changed.
+`facet update` rebuilds only when Vencord or the plugin changed.
 
 While the bridge is connected, Vesktop's own desktop notifications are dropped, so a DM
 shows up once. "open" and "call back" bring the Vesktop window to the front.
@@ -268,9 +268,9 @@ shows up once. "open" and "call back" bring the Vesktop window to the front.
 Steam's popups (messages, invites, achievements, finished downloads) come through the
 Millennium plugin on `qs-steam.sock` the same way, see [Steam](steam.md).
 
-`frame install quickshell` also looks for mako, dunst and swaync (running, as a user
+`facet install quickshell` also looks for mako, dunst and swaync (running, as a user
 service or in `exec-once`) and offers to turn them off, since only one program can
-receive notifications. `frame restore` brings them back.
+receive notifications. `facet restore` brings them back.
 
 ## Typing @
 
@@ -322,7 +322,7 @@ Nothing touches the recording itself: once something is changed, the edit is kep
 as `<recording>.edit.json`, and "export" writes `<recording>-edit.mp4` with ffmpeg; the
 notification offers open, folder and copy. "export & delete raw" asks once, exports, then moves
 the recording, its `.tracks` folder and the edit into the trash, so only the finished video
-stays. The editor needs Qt Multimedia (`qt6-multimedia-ffmpeg`, offered by `frame install`;
+stays. The editor needs Qt Multimedia (`qt6-multimedia-ffmpeg`, offered by `facet install`;
 without it the shell says so and everything else keeps working). Files: `editor/`,
 `quickshell/.local/bin/frame-record-mix` (tracks).
 
@@ -334,12 +334,12 @@ without it the shell says so and everything else keeps working). Files: `editor/
 left (see Drawing below). The edit is kept as `<name>.edit.json`, "export"
 (Ctrl+S) writes `<name>-edit.png` and the notification copies it as a picture for chats.
 "export & delete original" does the same and moves the original into the trash.
-In Dolphin both editors are under "Open with → frameshell editor" for any picture or video
+In Dolphin both editors are under "Open with → facet editor" for any picture or video
 (`quickshell/.local/share/applications/frameshell-editor.desktop`).
 
 ### Media
 
-Super+G (or "frameshell media" in the launcher, `qs ipc call media toggle`) shows every
+Super+G (or "facet media" in the launcher, `qs ipc call media toggle`) shows every
 screenshot and recording as a grid, newest first, with filters for pictures, videos and edited
 ones. Click picks one, Ctrl+click more, Shift+click a run, Ctrl+A all of them; double click or
 Enter opens it in the editor. "copy" puts one picture in as the picture and anything else as
@@ -373,7 +373,7 @@ In the picture editor the drawing is a layer above the blur boxes and pictures, 
 Export renders the drawing at the picture's full size and lays it over before the crop.
 
 Paint is no app of its own: "new picture" in the media app (paper: theme background, white or
-transparent), "frameshell paint" in the launcher or `qs ipc call editor paint` (`paintOn
+transparent), "facet paint" in the launcher or `qs ipc call editor paint` (`paintOn
 white|clear`) makes an empty 1920×1080 page in `~/Pictures/paintings` and opens it in the
 picture editor with the pen. Ctrl+S exports it like any picture. Files: `draw/` (the engine is
 `DrawEngine.js`), `editor/ImageProject.qml`, `services/Editor.qml`.
@@ -396,7 +396,7 @@ settings in a window of their own:
 - **sound**: the default output and microphone
 - **apps**: every module with update or add, the Spotify Web API, the keyboard app and its
   live switch, the GoXLR's lights
-- **system**: updates, boot splash, login screen, `frame status` and `frame clean`, versions
+- **system**: updates, boot splash, login screen, `facet status` and `facet clean`, versions
 
 What you change lands in `~/.config/frameshell/shell.json`, only the values that differ;
 "default" next to one takes it back. The file survives every update, and editing it by hand
@@ -411,7 +411,7 @@ weather panel, media controls and keyboard status. The login only shows on the s
 you were on; the others show the blur. Unlocking plays the animation backwards. The
 password is checked by PAM with `lockscreen/pam/password.conf` (password only).
 
-With `frame login` ([frame.md](frame.md)) the login screen looks the same: a greeter built
+With `facet login` ([facet.md](facet.md)) the login screen looks the same: a greeter built
 from the same pieces (`greeter/`), shown by greetd before the session starts.
 
 If Quickshell crashes while locked, Hyprland keeps the screen locked on purpose. To get

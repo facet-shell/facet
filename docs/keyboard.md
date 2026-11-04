@@ -1,7 +1,7 @@
 # AULA F75 on Linux
 
 `frame-keyboard` sets the F75's lighting and Fn keys without the Windows app, and the shell
-has an app for it (Super+K); `frame install keyboard` sets both up. The protocol below has
+has an app for it (Super+K); `facet install keyboard` sets both up. The protocol below has
 to prove itself on the real board first.
 Everything here was worked out from the vendor software and other people's notes.
 **Nothing has been sent to a keyboard yet.**
@@ -19,14 +19,14 @@ Marks used below:
 ## Install and first test
 
 ```bash
-frame install keyboard
+facet install keyboard
 ```
 
 That links `frame-keyboard` into `~/.local/bin` and installs the udev rule
 (`/etc/udev/rules.d/70-frameshell-aula-f75.rules`, asks for sudo), so the keyboard can be
-reached without root. Unplug and replug the keyboard once afterwards. `frame install`
+reached without root. Unplug and replug the keyboard once afterwards. `facet install`
 without names takes the package along by itself when an F75 is plugged in, and
-`frame update` puts a changed rule in place again.
+`facet update` puts a changed rule in place again.
 
 Test in this order and stop at the first surprise. Steps 1–3 only read, step 4 only touches
 RAM, and from step 5 on the changes go to flash. Each of those writes saves the old block first.
@@ -58,7 +58,7 @@ map with QWERTZ labels and has three tabs:
   them. *fill all* paints every key, and *solid*, *split* and *rows* are the theme styles.
   *write colors* saves them on the keyboard as the Self-define effect.
 
-The app calls `frame-keyboard` in `~/.local/bin` (`frame install keyboard`). It starts as
+The app calls `frame-keyboard` in `~/.local/bin` (`facet install keyboard`). It starts as
 a **dry run**: it shows placeholder data, and the log at the bottom shows the packets it would
 have sent. The *dry run* button switches to live until the shell restarts. Once the test
 order above works, set `keyboardLive: true` in `quickshell/.config/quickshell/config/Config.qml`
@@ -78,9 +78,9 @@ Two things happen on their own once the app is live:
   changes the frame without the board falling back to its effect in between. The hotkey overlay
   (Super held for 1.5 s, or opened by hand) counts as Super held. Nothing is saved on the board;
   letting go ends the process, which sends the stop packet, and the board's own effect comes back.
-- **Theme:** `frame theme set` writes the *split* style in the new colors to the keys (flash, so
+- **Theme:** `facet theme set` writes the *split* style in the new colors to the keys (flash, so
   only on a theme change). A board showing another effect keeps it; the colors show once you
-  pick self-define (`style split --keep-effect`). `frame` reads `keyboardLive` from Config.qml for
+  pick self-define (`style split --keep-effect`). `facet` reads `keyboardLive` from Config.qml for
   this, so it stays off until the keyboard is tested.
 
 ## Hardware

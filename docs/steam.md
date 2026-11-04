@@ -1,21 +1,21 @@
 # Steam
 
-Steam gets the frameshell look through [Millennium](https://steambrew.app), and its
+Steam gets the facet look through [Millennium](https://steambrew.app), and its
 notifications come up in the shell instead of Steam's own popups.
 
 ```bash
-frame install steam
+facet install steam
 ```
 
 That installs `steam` and `millennium` (AUR), links the theme and the plugin and turns
 both on. Millennium needs Steam from the Arch repo; Flatpak and Snap are not supported.
-If Steam was never started, start it once, close it and run `frame update steam`.
+If Steam was never started, start it once, close it and run `facet update steam`.
 
 ## Theme
 
 `steam/.local/share/Steam/millennium/themes/Frameshell` (Millennium reads it through
 `~/.steam/steam`, which points there). Like the Spotify theme it is static CSS on top of a
-color file that `frame theme` writes (`colors.css`, from `themes/templates/steam/…`).
+color file that `facet theme` writes (`colors.css`, from `themes/templates/steam/…`).
 JetBrains Mono everywhere, no rounded corners, no shadows, 1px frames.
 
 Steam's library uses class names that change with every update, so the theme mostly
@@ -23,7 +23,7 @@ recolors Steam's own design variables and styles the parts with stable names: di
 buttons, inputs, the friends list and chat. Big Picture keeps Steam's layout and only
 takes the colors.
 
-After `frame theme set …` restart Steam for the new colors. If something looks off after a
+After `facet theme set …` restart Steam for the new colors. If something looks off after a
 Steam update, open Millennium's developer tools and adjust `frameshell.css`.
 
 ## Library colors
@@ -37,7 +37,7 @@ Greys are sorted by brightness into the theme's surfaces and text colors, Steam'
 greens, oranges and reds become the matching accent, other saturated colors (collection
 labels, art tints), translucent overlays and fades over art are left alone.
 
-`frame theme` and `frame update steam` run it; after a Steam update that changed the class
+`facet theme` and `facet update steam` run it; after a Steam update that changed the class
 names, run `frame-steam-css` and restart Steam. Without the file the theme still applies, the
 library just keeps Steam's colors.
 
@@ -66,12 +66,12 @@ second for the shell's commands. The protocol is in the header of
 `quickshell/.config/quickshell/services/SteamBridge.qml`.
 
 To see whether it works: the backend logs to `~/.local/state/millennium/logs/frameshell_log.log`,
-the frontend writes `frameshell` lines to the SharedJSContext console.
+the frontend writes `facet` lines to the SharedJSContext console.
 
 ## How the plugin hooks in
 
 Checked on Steam 1791918634 with Millennium 3.6.2 (October 2026): the theme shows up and is
-enabled from `frame install steam`, the plugin's Lua backend connects to the shell's socket
+enabled from `facet install steam`, the plugin's Lua backend connects to the shell's socket
 (LuaJIT's ffi works in Millennium's Lua host) and a friend message reaches the shell as a popup
 while Steam's own toast stays away.
 
@@ -85,7 +85,7 @@ What the frontend logs goes through the backend into Steam's log, so no SharedJS
 is needed:
 
 ```bash
-grep "frameshell:" ~/.local/share/Steam/logs/console-linux.txt
+grep "facet:" ~/.local/share/Steam/logs/console-linux.txt
 ```
 
 `hooked BShowToast`, `forwarding notifications to the shell` and `→ shell: message` are the
@@ -93,4 +93,4 @@ lines to look for. Millennium loads plugin frontends only at Steam start (its pl
 reloads a cached copy), so after a change to the plugin restart Steam.
 
 The install links the plugin's files with stow; a Millennium installed before Steam's first
-start misses its hook into Steam's runtime, `frame status` says so.
+start misses its hook into Steam's runtime, `facet status` says so.

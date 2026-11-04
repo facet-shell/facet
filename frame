@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # frameshell moved: this repo only holds the docs now. An install made from it before the
-# move lands here on its next `frame update`; this says how to get the new frame command,
+# move lands here on its next `facet update`; this says how to get the new frame command,
 # which sets the modules up again (your theme, layout and settings stay).
-printf '\nframeshell moved to github.com/frame-shell: one repo per part, the frame command in its own.\n'
+printf '\nframeshell moved to github.com/facet-shell: one repo per part, the frame command in its own.\n'
 printf 'Get the new frame command and set it up again:\n\n'
-printf '  curl -fsSL https://frame-shell.github.io/install.sh | bash\n\n'
+printf '  curl -fsSL https://facet-shell.github.io/install.sh | bash\n\n'
 printf 'Then delete this old folder: %s\n\n' "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 exit 1

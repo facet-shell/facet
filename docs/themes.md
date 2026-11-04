@@ -3,8 +3,8 @@
 Every app gets its colors from one theme file in `themes/`. Switch all of them at once:
 
 ```bash
-frame theme list         # the themes, the active one marked
-frame theme set sakura   # rewrite every color file and reload what can reload
+facet theme list         # the themes, the active one marked
+facet theme set sakura   # rewrite every color file and reload what can reload
 ```
 
 | Theme | Colors | primary | bg |
@@ -20,10 +20,10 @@ All themes share the same roles: `bg`, `surface`, `surface2`, `shadow`, `primary
 `secondary`, `accent`, `text`, `textDim`, `muted`, `frame`, `danger`, `warn`, `ok`, plus 16
 terminal colors (`ansi`) and the fonts. A new theme is one more JSON file with these keys.
 
-`frame install` asks for a theme once. After `frame theme set …`, Quickshell, Zed and
+`facet install` asks for a theme once. After `facet theme set …`, Quickshell, Zed and
 Hyprland's window borders change right away; Spotify gets the theme applied again; new
 Ghostty windows and new shells pick it up; Dolphin, Zen and GTK apps need a restart; GRUB
-needs `frame grub`, the boot splash and the text consoles `frame boot` (both sudo).
+needs `facet grub`, the boot splash and the text consoles `facet boot` (both sudo).
 
 GTK apps (file dialogs, Nautilus, pavucontrol, anything with libadwaita) take their colors
 from `~/.config/gtk-4.0/gtk.css` and `gtk-3.0/gtk.css` (the `gtk` package): libadwaita's
@@ -36,7 +36,7 @@ launcher's shortcuts (`yt lofi`, `aw hyprland`); it is Zen's home page, new tabs
 
 Each app file with colors has a template in `themes/templates/<package>/<path>` with
 placeholders like `{{colors.primary}}`, `{{ansi.4}}` or `{{colors.surface2|lighten:8|bare}}`.
-`frame theme` fills them in and writes `<package>/<path>`, which Stow links as usual.
+`facet theme` fills them in and writes `<package>/<path>`, which Stow links as usual.
 Steps can be chained:
 
 | Step | Result for `#5d6fe8` |
@@ -49,16 +49,16 @@ Steps can be chained:
 | `alpha:XX` | `#5d6fe8XX` (XX in hex) |
 
 The written files are git-ignored, so switching themes never shows up as a change in the
-repo; `frame install` and `frame update` write them before linking. Edit the template,
-never the output. `frame theme check` only reports files that do not match the active theme.
+repo; `facet install` and `facet update` write them before linking. Edit the template,
+never the output. `facet theme check` only reports files that do not match the active theme.
 
 Generated: Quickshell (`config/Theme.qml`), Ghostty, fish syntax colors, Starship, Spotify
 (`color.ini`), Vesktop, Hyprland window borders, Zed, Dolphin (KDE color scheme and qt6ct
-palette), Zen and GRUB (`theme.txt`; `frame grub` draws the 1px frame images itself).
+palette), Zen and GRUB (`theme.txt`; `facet grub` draws the 1px frame images itself).
 
 ## GoXLR
 
-With goxlr-utility running, `frame theme set` (and `frame goxlr` on its own) also lights the
+With goxlr-utility running, `facet theme set` (and `facet goxlr` on its own) also lights the
 GoXLR in the theme: faders as a gradient meter from the secondary color at the top to the
 primary color, mute and cough buttons dimmed primary, danger when muted, the global and
 accent lights in primary and accent, and the "Simple" animation breathing through it (the

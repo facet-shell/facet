@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/banner.svg" alt="frameshell" width="100%">
+  <img src=".github/banner.svg" alt="facet" width="100%">
 </p>
 
 A desktop for CachyOS and Hyprland that looks like a terminal: square frames, one
@@ -7,7 +7,7 @@ monospace font and the same colors in every app. It started as my dotfiles and g
 into its own shell.
 
 <p align="center">
-  <img src=".github/themes.svg" alt="frame theme set switching through the six themes" width="100%">
+  <img src=".github/themes.svg" alt="facet theme set switching through the six themes" width="100%">
 </p>
 
 ## What's in it
@@ -21,12 +21,12 @@ into its own shell.
 - Bridges to Discord (calls, voice joins, messages), Steam (its popups land in the shell), the GoXLR and Spotify
 - Six themes for Ghostty, fish, Starship, Spotify, Vesktop, Steam, Zed, Dolphin, Zen, GTK apps,
   GRUB, the boot splash, the text consoles and the GoXLR's lights
-- `frame`, one command to install, update and switch themes
+- `facet`, one command to install, update and switch themes
 
 ## Install
 
 ```bash
-curl -fsSL https://frame-shell.github.io/install.sh | bash
+curl -fsSL https://facet-shell.github.io/install.sh | bash
 ```
 
 It asks for the full desktop or just the shell, then the apps one by one, the layout and the
@@ -35,15 +35,15 @@ part is its own repo here, and this one holds the docs.
 
 | Repo | |
 |---|---|
-| [cli](https://github.com/frame-shell/cli) | the `frame` command and the six themes |
-| [shell](https://github.com/frame-shell/shell) | bar, launcher, lockscreen, control center, editors, Hyprland config, login and boot screens |
-| [terminal](https://github.com/frame-shell/terminal) | Ghostty, fish, Starship, fastfetch |
-| [spotify](https://github.com/frame-shell/spotify) · [discord](https://github.com/frame-shell/discord) · [steam](https://github.com/frame-shell/steam) | the apps themed, bridged into the shell |
-| [keyboard](https://github.com/frame-shell/keyboard) | lighting and keys for the AULA F75 |
-| [zed](https://github.com/frame-shell/zed) · [zen](https://github.com/frame-shell/zen) · [dolphin](https://github.com/frame-shell/dolphin) | themes for the editor, the browser and the file manager |
+| [cli](https://github.com/facet-shell/cli) | the `facet` command and the six themes |
+| [shell](https://github.com/facet-shell/shell) | bar, launcher, lockscreen, control center, editors, Hyprland config, login and boot screens |
+| [terminal](https://github.com/facet-shell/terminal) | Ghostty, fish, Starship, fastfetch |
+| [spotify](https://github.com/facet-shell/spotify) · [discord](https://github.com/facet-shell/discord) · [steam](https://github.com/facet-shell/steam) | the apps themed, bridged into the shell |
+| [keyboard](https://github.com/facet-shell/keyboard) | lighting and keys for the AULA F75 |
+| [zed](https://github.com/facet-shell/zed) · [zen](https://github.com/facet-shell/zen) · [dolphin](https://github.com/facet-shell/dolphin) | themes for the editor, the browser and the file manager |
 
 <p align="center">
-  <img src=".github/install.svg" alt="frame install on a fresh CachyOS" width="100%">
+  <img src=".github/install.svg" alt="facet install on a fresh CachyOS" width="100%">
 </p>
 
 ## Using it
@@ -69,15 +69,15 @@ part is its own repo here, and this one holds the docs.
 | hold Super | all hotkeys on a keyboard map |
 
 ```bash
-frame theme set sakura   # periwinkle, sakura, matcha, ember, lagoon, mono
-frame update             # pull and apply everything again
-frame status             # what is linked and what is missing
-frame login              # the lockscreen look as the login screen
+facet theme set sakura   # periwinkle, sakura, matcha, ember, lagoon, mono
+facet update             # pull and apply everything again
+facet status             # what is linked and what is missing
+facet login              # the lockscreen look as the login screen
 ```
 
 The details are in [docs](docs/): [the shell](docs/shell.md), [Spotify](docs/spotify.md), [Steam](docs/steam.md),
-[the keyboard](docs/keyboard.md), [themes](docs/themes.md) and [the frame command](docs/frame.md). Ideas and bugs go on
-[the board](https://github.com/orgs/frame-shell/projects/1).
+[the keyboard](docs/keyboard.md), [themes](docs/themes.md) and [the facet command](docs/facet.md). Ideas and bugs go on
+[the board](https://github.com/orgs/facet-shell/projects/1).
 
 > Work in progress. It runs on my CachyOS machine, but it still has bugs and is not ready for
 > anyone else's desktop yet. What to try and how: [TESTING.md](TESTING.md).

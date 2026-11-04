@@ -5,7 +5,7 @@ reaches Spotify in one of three ways and picks the best one that works:
 
 | Way | Setup | Search | Play / queue | Controls |
 |---|---|---|---|---|
-| Spicetify extension | none, comes with `frame install spicetify` | yes | yes | yes, with like |
+| Spicetify extension | none, comes with `facet install spicetify` | yes | yes | yes, with like |
 | Web API | your own Spotify app, once (below) | yes | yes, on any device | yes, with like |
 | MPRIS | none | no | play only | yes, without like |
 
@@ -32,13 +32,13 @@ songs called "next" under the control row.
 
 ## Spicetify extension
 
-`frame install spicetify` (and every `frame update spicetify`) puts two extensions into
+`facet install spicetify` (and every `facet update spicetify`) puts two extensions into
 Spotify: `frameshell.js`, which does the work, and `frameshell-token.js`, a random token
 the shell checks so no web page can pose as Spotify. Spotify connects to the shell on
 `127.0.0.1:48931` as soon as both run.
 
 To see whether it works: `spicetify enable-devtools`, restart Spotify, open the DevTools
-(Ctrl+Shift+I) and look for `[frameshell] connected to the shell` in the console.
+(Ctrl+Shift+I) and look for `[facet] connected to the shell` in the console.
 
 The search uses Spotify's own quick search inside the client. Spotify renames its internals
 now and then; when that happens the extension falls back to the Web API with the client's
@@ -52,7 +52,7 @@ Needed only when the extension does not connect, or to control Spotify on anothe
 1. Open [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard), log in
    with your Spotify account and click **Create app**.
 2. Fill in:
-   - **App name** and **App description**: anything, e.g. "frameshell"
+   - **App name** and **App description**: anything, e.g. "facet"
    - **Redirect URI**: `http://127.0.0.1:8888/callback`, exactly like this. Spotify does
      not accept `localhost` here, it has to be the IP.
    - **Which API/SDKs are you planning to use?**: tick **Web API**
@@ -63,7 +63,7 @@ Needed only when the extension does not connect, or to control Spotify on anothe
 4. In a terminal:
 
    ```bash
-   frame spotify login
+   facet spotify login
    ```
 
    Paste the Client ID. A browser opens with Spotify's consent page; allow access. Spotify
@@ -73,16 +73,16 @@ Needed only when the extension does not connect, or to control Spotify on anothe
 5. Check it:
 
    ```bash
-   frame spotify status
+   facet spotify status
    ```
 
    It prints your name and plan. The launcher picks the Web API up the next time you type `s `.
 
 The tokens live in `~/.local/state/frameshell/spotify.json`, readable only by you. They
-renew themselves; `frame spotify logout` deletes them. To take the access back completely,
+renew themselves; `facet spotify logout` deletes them. To take the access back completely,
 remove the app under [spotify.com/account/apps](https://www.spotify.com/account/apps/).
 
-Things Spotify decides, not frameshell:
+Things Spotify decides, not facet:
 
 - Controlling playback through the Web API needs **Premium**. Search works without it.
 - A new app runs in **development mode**: only you and the people you add under
@@ -98,10 +98,10 @@ private playlists, and reading and changing your liked songs (for `s like`).
 
 | Problem | Fix |
 |---|---|
-| "via mpris" although Spicetify is installed | run `frame update spicetify`, restart Spotify, check the DevTools console |
-| console: "wrong token" | `frame install spicetify` writes the token again |
+| "via mpris" although Spicetify is installed | run `facet update spicetify`, restart Spotify, check the DevTools console |
+| console: "wrong token" | `facet install spicetify` writes the token again |
 | console: the socket is refused or blocked | Spotify blocked the local connection; use the Web API |
 | "search needs Spotify connected" | neither extension nor Web API works: see the two sections above |
-| "token rejected" | `frame spotify login` again |
+| "token rejected" | `facet spotify login` again |
 | "not allowed" on play | the account has no Premium (Web API only) |
-| port 48931 is taken | change `spotifyPort` in `quickshell/.config/quickshell/config/Config.qml` and `PORT` in `spicetify/.config/spicetify/Extensions/frameshell.js`, then `frame update spicetify` |
+| port 48931 is taken | change `spotifyPort` in `quickshell/.config/quickshell/config/Config.qml` and `PORT` in `spicetify/.config/spicetify/Extensions/frameshell.js`, then `facet update spicetify` |

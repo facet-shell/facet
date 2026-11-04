@@ -1,14 +1,14 @@
-# Testing frameshell
+# Testing facet
 
-A checklist for trying frameshell on a real CachyOS machine. Most of the code has never run
+A checklist for trying facet on a real CachyOS machine. Most of the code has never run
 on Linux, so this is where the bugs turn up. Tick what works. For what does not, note the
 step, what happened and the output of the command under it.
 
 ## Before you start
 
 ```bash
-frame update     # pull every module, relink, re-render the theme
-frame status     # every module linked, nothing missing
+facet update     # pull every module, relink, re-render the theme
+facet status     # every module linked, nothing missing
 ```
 
 Log out and in once after an update, so Hyprland starts the shell and its helpers anew.
@@ -20,26 +20,26 @@ Where to look when something is off:
 | the shell (bar, launcher, lockscreen, …) | `qs log`, or `qs log \| grep -i <word>` |
 | helpers, services, login | `journalctl --user -b`, `journalctl -b -p warning` |
 | Hyprland config errors | the red bar at the top, or `hyprctl configerrors` |
-| what is installed | `frame status` |
+| what is installed | `facet status` |
 
 A text console (Ctrl+Alt+F3) always lets you log in and undo things.
 
-Report on [the board](https://github.com/orgs/frame-shell/projects/1): open an issue in the
+Report on [the board](https://github.com/orgs/facet-shell/projects/1): open an issue in the
 repo of that part with the Bug form and paste the output of the command named for the item.
 
-## 1. Install and the frame command
+## 1. Install and the facet command
 
-- [ ] On a fresh install: `curl -fsSL https://frame-shell.github.io/install.sh | bash` asks for
+- [ ] On a fresh install: `curl -fsSL https://facet-shell.github.io/install.sh | bash` asks for
       full or only the shell, then the apps, the layout and the theme; only the picked modules
       are in `~/.local/share/frameshell/modules`
-- [ ] `frame status` lists every module as linked; `frame add zed` gets one more
-- [ ] An old install made from this repo: `frame update` says frameshell moved and prints the
+- [ ] `facet status` lists every module as linked; `facet add zed` gets one more
+- [ ] An old install made from this repo: `facet update` says facet moved and prints the
       curl line
-- [ ] `frame install --dry-run` shows the steps and changes nothing
-- [ ] `frame theme set` without a name: a menu, ↑↓, typing `sa` jumps to sakura, Esc cancels
-- [ ] Tab completion in a new fish: `frame th<Tab>`, `frame theme set <Tab>`
-- [ ] `frame backup`, then `frame restore latest` puts it back
-- [ ] `frame clean -n` lists every item with its size and deletes nothing; `frame clean` asks
+- [ ] `facet install --dry-run` shows the steps and changes nothing
+- [ ] `facet theme set` without a name: a menu, ↑↓, typing `sa` jumps to sakura, Esc cancels
+- [ ] Tab completion in a new fish: `frame th<Tab>`, `facet theme set <Tab>`
+- [ ] `facet backup`, then `facet restore latest` puts it back
+- [ ] `facet clean -n` lists every item with its size and deletes nothing; `facet clean` asks
       for each one (keep packages you use yourself)
 - [ ] `pgrep -a 'hypridle|swaybg|cliphist'` prints nothing; if your own `hyprland.lua` starts
       one of them, remove that line
@@ -122,33 +122,33 @@ repo of that part with the Bug form and paste the output of the command named fo
 - [ ] `: suspend` in the launcher, wake up: the lockscreen is there at once, no flash of the
       desktop
       - nothing locks before sleep? `systemd-inhibit --list` must show a delay lock by
-        frameshell, and `gdbus monitor --system --dest org.freedesktop.login1` must print
+        facet, and `gdbus monitor --system --dest org.freedesktop.login1` must print
         `PrepareForSleep (true,)` when you suspend
 - [ ] Wrong password: it says so, the right one works afterwards
       (`qs log | grep -i -e lock -e pam`)
 
 ## 7. Login and boot
 
-- [ ] `frame login`, then `frame status` says "Login screen: frameshell greeter"
-- [ ] Without a reboot: Ctrl+Alt+F3, log in, `sudo systemctl restart greetd`; the frameshell login
+- [ ] `facet login`, then `facet status` says "Login screen: facet greeter"
+- [ ] Without a reboot: Ctrl+Alt+F3, log in, `sudo systemctl restart greetd`; the facet login
       shows and the password logs you in to Hyprland
       - black screen or the old login? `journalctl -b -t frame-greeter -u greetd`;
-        `frame login remove` brings the distro's greeter back
-- [ ] `frame login auto`, reboot: no greeter, the shell's lockscreen asks for the password; after
+        `facet login remove` brings the distro's greeter back
+- [ ] `facet login auto`, reboot: no greeter, the shell's lockscreen asks for the password; after
       a logout the greeter is there
       - an open desktop or a logout loop? `journalctl -b -t frame-start-locked`
-- [ ] `frame boot`: it rebuilds the initramfs without errors and ends with `frame boot check`,
+- [ ] `facet boot`: it rebuilds the initramfs without errors and ends with `facet boot check`,
       all lines ✓ (or a warning that says what to change)
-- [ ] Reboot: the splash shows while booting, a frame with "frameshell", a filling progress
+- [ ] Reboot: the splash shows while booting, a frame with "facet", a filling progress
       line and "starting"; with LUKS the password prompt is in that frame
-      - nothing at boot? `frame boot check`, and send its output
+      - nothing at boot? `facet boot check`, and send its output
 - [ ] Shut down: the splash says "shutting down" and a short piece of the line sweeps back
       and forth; a restart says "restarting"
-- [ ] `frame update` with an older splash installed: step "Boot splash" installs it again,
+- [ ] `facet update` with an older splash installed: step "Boot splash" installs it again,
       the next one says "up to date"
 - [ ] Ctrl+Alt+F3: the console has the theme's colors (`systemctl status frameshell-vtrgb`)
-- [ ] With GRUB: `frame grub`, reboot, the menu is in the theme
-- Back: `frame boot remove`, `frame grub remove`
+- [ ] With GRUB: `facet grub`, reboot, the menu is in the theme
+- Back: `facet boot remove`, `facet grub remove`
 
 ## 8. Wallpapers
 
@@ -159,7 +159,7 @@ repo of that part with the Bug form and paste the output of the command named fo
 - [ ] With Wallpaper Engine: a subscribed Workshop scene shows up and plays
 - [ ] A screen with nothing set shows the theme's background color
 - [ ] Lock and unlock: the video or scene runs again afterwards
-- [ ] `frame wallpaper backend image`: only pictures in the app; `both` brings the rest back
+- [ ] `facet wallpaper backend image`: only pictures in the app; `both` brings the rest back
 
 ## 9. Screenshots
 
@@ -205,7 +205,7 @@ repo of that part with the Bug form and paste the output of the command named fo
 - [ ] Delete a recording in Dolphin, Super+G: "clean up 2 leftovers" takes its edit and tracks
 - [ ] Screenshot, "edit": `b`, drag the box over a name, `c` and pull a corner, Ctrl+S:
       `<name>-edit.png` is blurred and cropped
-- [ ] Dolphin, right click a picture or video: "Open with → frameshell editor"
+- [ ] Dolphin, right click a picture or video: "Open with → facet editor"
 
 ## 12. Settings app
 
@@ -215,12 +215,12 @@ repo of that part with the Bug form and paste the output of the command named fo
       "default" takes it out again
 - [ ] launcher: Claude off, `c ` in the launcher no longer asks Claude
 - [ ] sound: another output, music moves there
-- [ ] apps: "add" on a missing module opens a terminal with `frame add`
-- [ ] system: `frame status` opens in a terminal
+- [ ] apps: "add" on a missing module opens a terminal with `facet add`
+- [ ] system: `facet status` opens in a terminal
 
 ## 13. Canvas layout and overview
 
-Switch with `frame layout canvas`.
+Switch with `facet layout canvas`.
 
 - [ ] Super+Ctrl+arrows moves the view, the minimap in the bar follows; a click on the minimap
       looks there
@@ -234,7 +234,7 @@ Switch with `frame layout canvas`.
       F makes the window under the cursor fullscreen, Q closes it
 - [ ] Two monitors: a click on the second screen's minimap moves that screen, not the first
 - [ ] `hyprctl reload`: the view stays where it was (`cat ~/.local/state/frameshell/canvas`)
-- [ ] `frame layout tiling`: dialogs come back on screen, big windows tile again
+- [ ] `facet layout tiling`: dialogs come back on screen, big windows tile again
 
 ## 14. Game mode and Super+Tab
 
@@ -275,7 +275,7 @@ Switch with `frame layout canvas`.
 
 ## 17. Discord
 
-- [ ] After `frame update vencord`, `~/.local/share/frameshell/vencord` has no `node_modules` and
+- [ ] After `facet update vencord`, `~/.local/share/frameshell/vencord` has no `node_modules` and
       Vesktop has the theme and ShellBridge
 - [ ] A DM while Vesktop is not focused: one shell popup with "open" (no second one from Vesktop)
 - [ ] A group DM names the group; a mention in a server names server and channel
@@ -300,50 +300,50 @@ Switch with `frame layout canvas`.
 
 ## 18. Spotify
 
-- [ ] `frame install spicetify`, restart Spotify: the theme is on
+- [ ] `facet install spicetify`, restart Spotify: the theme is on
 - [ ] `s daft punk`: tracks, artists, albums, playlists; the info pane says "via spotify client"
-      - "via mpris"? `frame update spicetify`, restart Spotify; with `spicetify enable-devtools`
-        the console must say `[frameshell] connected to the shell`
+      - "via mpris"? `facet update spicetify`, restart Spotify; with `spicetify enable-devtools`
+        the console must say `[facet] connected to the shell`
 - [ ] Enter plays, Shift+Enter queues; `s next`, `s f 30`, `s 1:10`, `s like` do what they say
-- [ ] Optional, the Web API: `frame spotify login` (see [docs/spotify.md](docs/spotify.md)), then
-      `frame spotify status` prints your name
+- [ ] Optional, the Web API: `facet spotify login` (see [docs/spotify.md](docs/spotify.md)), then
+      `facet spotify status` prints your name
 
 ## 19. Steam
 
-- [ ] `frame install steam`, start Steam: the Frameshell theme is on, the library in the theme's
+- [ ] `facet install steam`, start Steam: the Frameshell theme is on, the library in the theme's
       colors, no minimize or maximize buttons
 - [ ] A friend message: the popup comes from the shell, not from Steam
 - [ ] A game invite stays until handled; an achievement and a finished download show as shell
       popups
-- [ ] Nothing reaches the shell? `grep "frameshell:" ~/.local/share/Steam/logs/console-linux.txt`
-      must show `hooked BShowToast`; `frame status` says when Millennium is not hooked in
+- [ ] Nothing reaches the shell? `grep "facet:" ~/.local/share/Steam/logs/console-linux.txt`
+      must show `hooked BShowToast`; `facet status` says when Millennium is not hooked in
 
 ## 20. Keyboard (AULA F75)
 
 Nothing has been sent to the board yet. Go in the order of
 [docs/keyboard.md](docs/keyboard.md#install-and-first-test) and stop at the first surprise.
 
-- [ ] `frame install keyboard`, replug: `frame-keyboard list` marks the configuration interface
+- [ ] `facet install keyboard`, replug: `frame-keyboard list` marks the configuration interface
 - [ ] `frame-keyboard info --live` shows device id `03 00 00 00 00 cd`
 - [ ] `frame-keyboard backup --live` saves to `~/.local/state/frameshell/keyboard/`
 - [ ] `frame-keyboard highlight --live q w e --seconds 3` lights them, the old effect comes back
 - [ ] Super+K: the map with the lighting, fn keys and colors tabs; apply one effect
 - [ ] Hold Super: the keys that do something with it light up, letting go brings the effect back
-- [ ] `frame theme set matcha`: the keys take the theme colors
+- [ ] `facet theme set matcha`: the keys take the theme colors
 
 ## 21. Themes in the apps
 
-- [ ] `frame theme set matcha`: bar, window borders and Zed change at once; a new Ghostty window
-      and a new fish are green; `frame theme check` prints nothing
+- [ ] `facet theme set matcha`: bar, window borders and Zed change at once; a new Ghostty window
+      and a new fish are green; `facet theme check` prints nothing
 - [ ] GTK: pavucontrol or a file dialog (Zen → save a page) is dark, square, JetBrains Mono;
       `gsettings get org.gnome.desktop.interface color-scheme` says `'prefer-dark'`
 - [ ] Zed (Super+Shift+E): the theme, the file tree on the left, Ctrl+J opens fish; language
       extensions install on the first start
-- [ ] Zen (Super+B): square corners, the frameshell start page (clock, search); `yt lofi` in it
+- [ ] Zen (Super+B): square corners, the facet start page (clock, search); `yt lofi` in it
       searches YouTube
 - [ ] Dolphin (Super+E): the theme's colors and JetBrains Mono after one logout
       (`echo $QT_QPA_PLATFORMTHEME` says `qt6ct`); "Open with" lists apps
-- [ ] With a GoXLR: `frame goxlr` lights the faders and buttons in the theme
+- [ ] With a GoXLR: `facet goxlr` lights the faders and buttons in the theme
 
 ## 22. Drawing and paint
 
@@ -365,4 +365,4 @@ Nothing has been sent to the board yet. Go in the order of
       rest; reopen: the drawing is still editable (in `<name>.edit.json`)
 - [ ] Super+G, "new picture", "white": an empty page opens with the pen, the window says paint;
       Ctrl+S writes `~/Pictures/paintings/painting-…-edit.png`
-- [ ] "frameshell paint" in the launcher and `qs ipc call editor paintOn clear` (transparent page)
+- [ ] "facet paint" in the launcher and `qs ipc call editor paintOn clear` (transparent page)
