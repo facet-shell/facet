@@ -4,8 +4,10 @@
 curl -fsSL https://facet-shell.github.io/install.sh | bash
 ```
 
-That gets the CLI from [frame-shell/cli](https://github.com/facet-shell/cli) and starts
-`facet install`. Each part is its own repo in [frame-shell](https://github.com/facet-shell);
+That gets the CLI from [facet-shell/cli](https://github.com/facet-shell/cli) and starts
+`facet install`. Each part is its own repo in [facet-shell](https://github.com/facet-shell):
+[core](https://github.com/facet-shell/core) is what every look shares, a look
+([look-tui](https://github.com/facet-shell/look-tui) for now) the bar, panels and screens on top;
 only the ones you pick are downloaded. `facet install` without package names starts the setup:
 
 1. **How much:** the *full* desktop (shell, terminal and prompt) or *only the shell*, then the

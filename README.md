@@ -36,7 +36,8 @@ part is its own repo here, and this one holds the docs.
 | Repo | |
 |---|---|
 | [cli](https://github.com/facet-shell/cli) | the `facet` command and the six themes |
-| [shell](https://github.com/facet-shell/shell) | bar, launcher, lockscreen, control center, editors, Hyprland config, login and boot screens |
+| [core](https://github.com/facet-shell/core) | what every look shares: services and bridges, settings, the infinite canvas, Hyprland config, wallpapers |
+| [look-tui](https://github.com/facet-shell/look-tui) | the tui look: bar, launcher, lockscreen, control center, editors, login and boot screens |
 | [terminal](https://github.com/facet-shell/terminal) | Ghostty, fish, Starship, fastfetch |
 | [spotify](https://github.com/facet-shell/spotify) · [discord](https://github.com/facet-shell/discord) · [steam](https://github.com/facet-shell/steam) | the apps themed, bridged into the shell |
 | [keyboard](https://github.com/facet-shell/keyboard) | lighting and keys for the AULA F75 |
