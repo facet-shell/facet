@@ -372,3 +372,46 @@ Nothing has been sent to the board yet. Go in the order of
 - [ ] Super+G, "new picture", "white": an empty page opens with the pen, the window says paint;
       Ctrl+S writes `~/Pictures/paintings/painting-…-edit.png`
 - [ ] "facet paint" in the launcher and `qs ipc call editor paintOn clear` (transparent page)
+
+## 23. Sound channels (with and without a GoXLR)
+
+Without a GoXLR, before `facet audio channels on`:
+- [ ] Nothing about channels anywhere: control center "sound" with the app mixer button,
+      mixer with device lists, settings › sound only says how to turn them on, no GoXLR
+      profile under games, no GoXLR lights under apps; `qs log` has no goxlr or audio errors
+- [ ] `ls ~/.config/pipewire/pipewire.conf.d/` has no facet file; recording offers desktop and mic
+
+`facet audio channels on`:
+- [ ] PipeWire and the shell restart once; `pactl list short sinks` has facet-system,
+      facet-game, facet-chat, facet-music; `pactl get-default-sink` is facet-system
+- [ ] Sound still comes out of the speakers/headset; `wpctl status` shows the four as sinks
+      and their `.output` streams on the real device
+- [ ] Control center: channels with system, game, chat, music and output; a slider changes the
+      channel only (Spotify on music gets quieter, a video on system not); mute works; OSD shows it
+- [ ] Mixer: chips system/game/chat/music on every app; Spotify starts on music and Vesktop
+      voice on chat by themselves; move Spotify to game, restart it: it stays on game
+- [ ] A Steam game (or anything in game mode) plays on game
+- [ ] Output row in the mixer (or settings › sound): pick another device, all channels move;
+      after `systemctl --user restart pipewire wireplumber` they are still there
+      (`grep target.object ~/.config/pipewire/pipewire.conf.d/facet-channels.conf`)
+- [ ] Recording with game, chat and mic ticked: three FLAC files in `<recording>.tracks/`,
+      the editor has a row each
+- [ ] Unplug the output (USB headset): sound goes to another device, no feedback howl; plug it
+      back: the channels go back (else pick it in the output row)
+- [ ] Settings › sound › channels from "none": chips and channel faders go, plain devices
+      again; "auto" brings them back
+- [ ] A sink called "Music" made before (`pactl load-module module-null-sink sink_name=Music`),
+      then `facet audio channels on`: says it takes it over, no facet-music
+- [ ] `facet audio channels status` and `facet status` list them
+
+`facet audio channels off`:
+- [ ] Apps play on the real output again, it is the default; no facet-* sinks, no
+      facet-channels.conf, no audio-channels.json or audio-routes.json in ~/.local/state/frameshell
+- [ ] The shell shows no channels again
+
+With the GoXLR (nothing may change):
+- [ ] Faders, mutes, the Mini's System slider, chips on the GoXLR channels, recording tracks
+      (incl. stream mix) and the game mode profile all as before; bloom's Quick tab now shows
+      the GoXLR faders as meters with mutes
+- [ ] The setup does not ask about virtual channels; `facet audio channels on` warns that the
+      GoXLR's channels stay in use unless settings › sound says virtual

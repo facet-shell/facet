@@ -20,7 +20,10 @@ only the ones you pick are downloaded. `facet install` without package names sta
 On top of that it notices a connected GoXLR (or GoXLR Mini) and installs GoXLR Utility for
 the faders and mutes in the shell, and it installs Spotify (the AUR package) when the
 Spotify theme is picked and no Spotify is there. Claude Code comes from Anthropic's own
-installer (`claude.ai/install.sh`). `facet install -y` takes everything without asking.
+installer (`claude.ai/install.sh`). Without a GoXLR it asks once whether you want its channels
+as virtual outputs (System, Game, Chat, Music; default no, later: `facet audio channels on|off`,
+see [shell.md](shell.md#sound-channels-without-a-goxlr)). `facet install -y` takes everything
+without asking (and says no to the channels).
 
 Then it installs the missing packages (through `paru`/`yay`), writes the theme's color
 files, moves existing configs to `~/.local/state/frameshell/backup/`, links the configs

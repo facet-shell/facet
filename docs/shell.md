@@ -173,12 +173,55 @@ On a GoXLR Mini the System channel has no fader: the control center shows a slid
 and the volume in the bar is that channel; scrolling on it changes it in steps of 5 %
 (without a GoXLR: the default output). The OSD shows the change like a fader move.
 
+### Sound channels without a GoXLR
+
+Everything above about channels works without a GoXLR too, through **virtual channels**:
+`facet audio channels on` (or "yes" to the setup's question, which only comes without a
+GoXLR and defaults to no) makes one PipeWire output per channel, System, Game, Chat and Music
+(`facet audio channels on system game chat music stream` for others), each looped into your
+real output. Nothing about them exists or shows before that.
+
+- **What it writes:** `~/.config/pipewire/pipewire.conf.d/facet-channels.conf`, one
+  `libpipewire-module-loopback` per channel: a sink `facet-<name>` that apps play into and a
+  passive stream `facet-<name>.output` into the output (`target.object`), so they survive
+  reboots; System becomes the default output, so every app that is not moved plays there.
+  The shell finds them through `~/.local/state/frameshell/audio-channels.json`. PipeWire and a
+  running shell restart once.
+- **What you already have:** a sink with a channel's name (your own "Music", not facet's and
+  not the GoXLR's) is taken over instead of made twice. With EasyEffects as the default output
+  the channels play into it, so its effects stay on everything; turn off its "process all
+  output streams" or it pulls the apps off their channels again.
+- **In the shell:** the mixer's chips put apps on a channel and the output row moves all
+  channels to another device (`facet audio channels output <sink>` does the same and keeps it
+  for the next start). The control center has a slider and a mute per channel and one for
+  the output; a recording gets a track per channel and the mic; the OSD shows channel changes.
+- **Apps by themselves:** when an app starts on System, the rules in settings › sound put it
+  on its channel (`audioRules`: Vesktop, Discord and voice chat → Chat, Spotify → Music,
+  `@game`, the game that runs, → Game); what you pick in the mixer always wins and is
+  remembered (`~/.local/state/frameshell/audio-routes.json`, "forget" in the settings).
+  `audioRulesOn: false` keeps the rules but moves nothing.
+- **Which channels the shell uses:** settings › sound › channels from: auto (the GoXLR when one
+  is there, else the virtual channels), goxlr, virtual or none (plain devices). With virtual or
+  none the shell does not talk to GoXLR Utility at all.
+- **Gone again:** `facet audio channels off` moves every app back to the output, makes it the
+  default again and removes the drop-in, the state and the mixer's memory.
+  `facet audio channels status` (and `facet status`) shows what is there.
+
+| | GoXLR | virtual channels | neither |
+|---|---|---|---|
+| app mixer | chip per channel | chip per channel, app rules | device list per app, master rows |
+| control center | physical faders, mutes | slider and mute per channel, the output | volume, mic mute |
+| recording tracks | GoXLR outputs, inputs, stream mix | every channel and the mic | default output and mic |
+| game mode | `goxlrGameProfile` | the game on Game | – |
+| lights | `facet goxlr` | – | – |
+
 ## OSD
 
 A small frame at the bottom center, gone after 1.6 s and never on the lockscreen. It only
 shows what already happened: a GoXLR fader moved or was muted, the GoXLR mic button was
 pressed, the default output volume changed (e.g. from an app), the keyboard layout
-switched. There is no keyboard volume control; the levels live on the GoXLR.
+switched; with the virtual channels a channel's level or mute too. There is no keyboard volume
+control; the levels live on the GoXLR (or in the control center).
 
 ## Wallpapers
 
@@ -392,10 +435,11 @@ settings in a window of their own:
 - **launcher**: the web search engine, Claude on or off and its model, where file search
   looks, snooze length
 - **games**: game mode by itself, quiet while playing, the list of apps that are games, a GoXLR
-  profile while playing
-- **sound**: the default output and microphone
+  profile while playing (only with a GoXLR)
+- **sound**: the default output and microphone (with the virtual channels: the device they
+  play into), where the channels come from, the app rules for the virtual channels
 - **apps**: every module with update or add, the Spotify Web API, the keyboard app and its
-  live switch, the GoXLR's lights
+  live switch, the GoXLR's lights (only with a GoXLR)
 - **system**: updates, boot splash, login screen, `facet status` and `facet clean`, versions
 
 What you change lands in `~/.config/frameshell/shell.json`, only the values that differ;
