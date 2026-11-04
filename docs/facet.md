@@ -6,8 +6,8 @@ curl -fsSL https://facet-shell.github.io/install.sh | bash
 
 That gets the CLI from [facet-shell/cli](https://github.com/facet-shell/cli) and starts
 `facet install`. Each part is its own repo in [facet-shell](https://github.com/facet-shell):
-[core](https://github.com/facet-shell/core) is what every look shares, a look
-([look-tui](https://github.com/facet-shell/look-tui) for now) the bar, panels and screens on top;
+[core](https://github.com/facet-shell/core) is what every style shares, a style
+([style-tui](https://github.com/facet-shell/style-tui) for now) the bar, panels and screens on top;
 only the ones you pick are downloaded. `facet install` without package names starts the setup:
 
 1. **How much:** the *full* desktop (shell, terminal and prompt) or *only the shell*, then the
@@ -39,6 +39,8 @@ facet restore                # list backups
 facet restore latest         # put the newest one back
 facet theme list             # themes; facet theme set <name> switches
 facet theme set              # without a name: pick one with the arrow keys
+facet style list             # styles: the look of the whole desktop (tui; bloom soon)
+facet style tui              # switch the style; the colors (theme) stay
 facet grub                   # theme the GRUB boot menu (sudo)
 facet grub remove            # switch it off again
 facet boot                   # boot splash (Plymouth) and text console colors (sudo)
@@ -135,7 +137,7 @@ Manual steps:
   says so, open Spotify, log in and run `facet update spicetify`.
 - **Vesktop:** start it once, then close it before `facet install vencord` so the theme can be
   switched on automatically (otherwise: Settings → Themes → Frameshell).
-- **Font:** JetBrains Mono everywhere (TUI look); `facet` installs `ttf-jetbrains-mono`
+- **Font:** JetBrains Mono everywhere (tui style); `facet` installs `ttf-jetbrains-mono`
   and the Nerd Font symbols alone for icons (`ttf-nerd-fonts-symbols-mono`, a few MB instead
   of the whole patched family).
 - **Hyprland:** facet's Hyprland files are Lua (Hyprland 0.55+, which reads

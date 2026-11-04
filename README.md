@@ -36,8 +36,8 @@ part is its own repo here, and this one holds the docs.
 | Repo | |
 |---|---|
 | [cli](https://github.com/facet-shell/cli) | the `facet` command and the six themes |
-| [core](https://github.com/facet-shell/core) | what every look shares: services and bridges, settings, the infinite canvas, Hyprland config, wallpapers |
-| [look-tui](https://github.com/facet-shell/look-tui) | the tui look: bar, launcher, lockscreen, control center, editors, login and boot screens |
+| [core](https://github.com/facet-shell/core) | what every style shares: services and bridges, settings, the infinite canvas, Hyprland config, wallpapers |
+| [style-tui](https://github.com/facet-shell/style-tui) | the tui style: bar, launcher, lockscreen, control center, editors, login and boot screens |
 | [terminal](https://github.com/facet-shell/terminal) | Ghostty, fish, Starship, fastfetch |
 | [spotify](https://github.com/facet-shell/spotify) · [discord](https://github.com/facet-shell/discord) · [steam](https://github.com/facet-shell/steam) | the apps themed, bridged into the shell |
 | [keyboard](https://github.com/facet-shell/keyboard) | lighting and keys for the AULA F75 |
@@ -71,6 +71,7 @@ part is its own repo here, and this one holds the docs.
 
 ```bash
 facet theme set sakura   # periwinkle, sakura, matcha, ember, lagoon, mono
+facet style tui          # the look: tui today, bloom soon; theme is its colors
 facet update             # pull and apply everything again
 facet status             # what is linked and what is missing
 facet login              # the lockscreen look as the login screen

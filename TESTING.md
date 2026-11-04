@@ -35,14 +35,15 @@ repo of that part with the Bug form and paste the output of the command named fo
 - [ ] `facet status` lists every module as linked; `facet add zed` gets one more
 - [ ] An install from before facet: the migrate-to-facet line (its README) points every
       module at facet-shell, then `facet update` moves `modules/shell` to `modules/core` and
-      fetches `modules/look-tui`; afterwards `facet status` shows quickshell, tui, hypr,
+      fetches `modules/style-tui`; afterwards `facet status` shows quickshell, tui, hypr,
       wallpaper and gtk linked, `which frame` finds nothing, `which facet` does
 - [ ] After the move the desktop looks and works exactly as before (bar, launcher, lockscreen,
       media keys, `qs ipc call player toggle`); `qs log` shows no missing types
-- [ ] Login and boot screen still themed: `facet login`, `facet boot` find their files in look-tui
+- [ ] Login and boot screen still themed: `facet login`, `facet boot` find their files in style-tui
 - [ ] `facet install --dry-run` shows the steps and changes nothing
 - [ ] `facet theme set` without a name: a menu, ↑↓, typing `sa` jumps to sakura, Esc cancels
 - [ ] Tab completion in a new fish: `facet th<Tab>`, `facet theme set <Tab>`
+- [ ] `facet style list` shows tui as in use; `facet style tui` says "Already tui"
 - [ ] `facet backup`, then `facet restore latest` puts it back
 - [ ] `facet clean -n` lists every item with its size and deletes nothing; `facet clean` asks
       for each one (keep packages you use yourself)
