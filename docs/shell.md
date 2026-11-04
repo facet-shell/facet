@@ -136,7 +136,11 @@ on the number opens Ghostty with the update and `frame update` afterwards, and t
 is checked again when that window closes.
 
 **Game mode** switches itself on while a game runs: Steam games (window class
-`steam_app_<id>`), gamescope, and the classes in `gameClasses` in the settings app (or `config/Config.qml`).
+`steam_app_<id>`), gamescope, and the apps on the list under games in the settings app
+(`gameClasses`): Sober, GeForce NOW and the like. An entry is a window class in any case,
+`*` matches anything (`*geforce*`), and `title:` matches the window title instead
+(`title:*GeForce NOW*` also catches it in a browser tab). "from open windows" adds the class
+of a window that is open right now; suggestions add the common ones.
 It turns animations and blur off, sets the performance power profile, holds back the
 popups the notification rules mark "not in game" (calls, invites and messages still come
 through by default), pauses the wallpaper and, with `goxlrGameProfile`
@@ -241,6 +245,17 @@ them over MPRIS (Spotify yes, a YouTube tab usually not).
   call nobody answers turns into a missed-call notice with "call back" (declining inside
   Discord itself also shows up as missed)
 - your own mute and deafen changes, with "unmute"/"undeafen"
+- for the voice overlay: who is in your voice channel, who is talking, muted, deafened or live
+
+**Voice overlay** (`voice/VoiceOverlay.qml`): while you are in a voice channel, the people in it
+on the left under the bar, a green ring around whoever talks, red icons for muted and
+deafened, LIVE for a stream, and a short feed of joins, leaves and your own mute. No title,
+frame or background: faces and names with a thin dark outline, every click goes through
+to the game. Super+Shift+V moves it (it takes the mouse until Esc or the key again; the spot
+is kept per screen), Super+Shift+M mutes and Super+Shift+D deafens in Discord from anywhere.
+By default it shows while Discord is on no screen, and joins, leaves and your mute go into
+it instead of a popup; the look (list, compact, only who talks), size and dimming are under
+notifications in the settings app.
 
 `frame install vencord` sets it up: it clones Vencord to `~/.local/share/frameshell/vencord`,
 adds ShellBridge, builds it with pnpm, points Vesktop at that build (`vencordDir` in
@@ -373,10 +388,10 @@ settings in a window of their own:
 - **shell**: lock and screens off when idle, the weather's city
 - **notifications**: what shows when (per kind: always, not in game, never), messages while
   Discord or Steam is open, where the popups sit, their style, width, time and how many at
-  once; the Spotify popup's place, format, size and time
+  once; the Spotify popup's place, format, size and time; the Discord voice overlay
 - **launcher**: the web search engine, Claude on or off and its model, where file search
   looks, snooze length
-- **games**: game mode by itself, quiet while playing, other games by window class, a GoXLR
+- **games**: game mode by itself, quiet while playing, the list of apps that are games, a GoXLR
   profile while playing
 - **sound**: the default output and microphone
 - **apps**: every module with update or add, the Spotify Web API, the keyboard app and its

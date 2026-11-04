@@ -243,7 +243,9 @@ Switch with `frame layout canvas`.
 - [ ] In the game: `notify-send hello` waits on the bell; a Steam invite, a friend request, a
       Discord DM or call still pops up (the rules' defaults); the next Spotify song does not
       - nothing happens? `hyprctl clients | grep -e class -e workspace` while it runs; a Steam
-        game shows `steam_app_<number>`, other games go into "other games" in the settings app
+        game shows `steam_app_<number>`, other games go on the list under games in the settings app
+- [ ] Settings → games: "+ Sober (Roblox)" puts it on the list; start Sober: game mode comes on
+      (also GeForce NOW, or "from open windows" with the app open); ✕ takes it off again
 - [ ] Super+Tab goes to the desktop and back to the game
 - [ ] Two games open: Alt+Tab goes from one to the other; Enter on a running game in the
       launcher shows it
@@ -280,7 +282,17 @@ Switch with `frame layout canvas`.
 - [ ] Someone joins or leaves your voice channel: a popup; "Watch in shell" on a voice channel
       gives one with "join"
 - [ ] An incoming call: accept and decline work; a call you miss turns into "call back"
-- [ ] Mute in Discord: a popup with "unmute"
+- [ ] Mute in Discord: a popup with "unmute" (in a voice channel with the overlay showing: a red
+      line in the overlay instead)
+- [ ] Voice overlay: join a voice channel, put Discord on no screen: on the left under the bar
+      everyone in it, no frame or background; who talks gets a green ring, muted and deafened
+      red icons, a stream LIVE
+- [ ] Someone joins or leaves: a green or grey line in the overlay that fades, no popup
+- [ ] Super+Shift+M and Super+Shift+D from inside a game mute and deafen in Discord
+- [ ] Super+Shift+V: a thin frame, drag it somewhere, Esc; it stays there after `qs` restarts;
+      clicks go through it again
+- [ ] Settings → notifications → Discord voice overlay: compact, only who talks, size, "in
+      game", "never" each change it right away
 - [ ] Launcher: `d` lists the last chats, `d anna` opens the DM, `d msg anna hi` sends it,
       `d call anna` rings, `d reply ok` goes to the last person you wrote to
 - [ ] Nothing reaches the shell? `ls $XDG_RUNTIME_DIR/qs-discord.sock`, and Vesktop's DevTools
