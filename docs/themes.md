@@ -1,6 +1,9 @@
 # Themes
 
-Every app gets its colors from one theme file in `themes/`. Switch all of them at once:
+Every app gets its colors from one theme file. Color themes belong to a style: the tui style has
+its own in `themes/tui/`, bloom its own in `themes/bloom/` (with `nebula` as its default and the
+Material You `tones` it uses), and each style remembers the one picked for it, so `facet style`
+brings its colors back. `facet theme` lists and sets the themes of the style in use:
 
 ```bash
 facet theme list         # the themes, the active one marked
@@ -29,14 +32,18 @@ GTK apps (file dialogs, Nautilus, pavucontrol, anything with libadwaita) take th
 from `~/.config/gtk-4.0/gtk.css` and `gtk-3.0/gtk.css` (the `gtk` package): libadwaita's
 named colors set from the theme, square corners and thin borders, JetBrains Mono, dark.
 GTK 3 apps use the adw-gtk3 theme when `adw-gtk-theme` is installed, so the same names apply. Zen gets a start page in the
-theme too (`themes/templates/zen/startpage.html`): clock, date and a search that takes the
+theme too (`templates/tui/zen/startpage.html` in the zen module): clock, date and a search that takes the
 launcher's shortcuts (`yt lofi`, `aw hyprland`); it is Zen's home page, new tabs stay Zen's own.
 
 ## How the files are made
 
-Each app file with colors has a template in `themes/templates/<package>/<path>` with
+Each app file with colors has a template in its module, in `templates/<style>/<package>/<path>`
+(written for the style in use only; a template outside a style folder, like Hyprland’s colors in
+core, is written for every style; a style module’s own templates while that style is in use) with
 placeholders like `{{colors.primary}}`, `{{ansi.4}}` or `{{colors.surface2|lighten:8|bare}}`.
-`facet theme` fills them in and writes `<package>/<path>`, which Stow links as usual.
+`facet theme` fills them in and writes `<package>/<path>`, which Stow links as usual. The
+app themes are named after the style: "facet tui" and "facet bloom" in Zed, Vesktop, Spotify,
+Steam (Millennium), Dolphin, Ghostty; `facet style` switches each app to its style’s theme.
 Steps can be chained:
 
 | Step | Result for `#5d6fe8` |
