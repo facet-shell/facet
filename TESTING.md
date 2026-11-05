@@ -487,3 +487,15 @@ Device pages in the control center:
 - [ ] Mic mute chevron: the input list, picking a microphone moves the check and Settings ›
       Sound › Input agrees; volume chevron: the output list, picking a device moves the sound
 - [ ] Close the drawer with a page open, reopen: the tiles are back
+
+Stream viewers in the voice overlay (Go Live):
+- [ ] In a voice channel with a friend, start Go Live: nothing new yet, no line, no notification
+- [ ] The friend watches the stream: an eye with 1 next to your own entry, in the list look
+      their small face beside it, the feed says "name is watching your stream"
+- [ ] Looks compact and talking, and the in-game pill: only the eye and the count
+- [ ] Feed set to notification or both: the line comes as a dc.voice notification ("1 watching")
+- [ ] The friend stops watching: "name stopped watching", the eye goes at zero
+- [ ] Stop the stream while someone watches: the eye goes, no "stopped watching" line
+- [ ] Restart the shell while live with a viewer: eye and count are back once the plugin reconnects
+- [ ] If the eye never appears: Vesktop's console (Ctrl+Shift+I) for a "[ShellBridge] stream state
+      unavailable" warning, then Discord renamed its streaming store
