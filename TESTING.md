@@ -415,3 +415,75 @@ With the GoXLR (nothing may change):
       the GoXLR faders as meters with mutes
 - [ ] The setup does not ask about virtual channels; `facet audio channels on` warns that the
       GoXLR's channels stay in use unless settings › sound says virtual
+
+## 24. bloom: settings in categories, grouped notifications, album colors, device pages, ambient lock
+
+Settings (Super+, in bloom):
+- [ ] Left: a search box and nine categories; right: the picked category's menu, one card
+      per group, each row with an icon, a line and what it is set to (theme name, "after 5 min" …)
+- [ ] Click a row: the page slides in from the right with a back arrow and the category's
+      name over the title; the back arrow, Esc, Backspace and Alt+Left go back; Esc on the
+      menu closes the window
+- [ ] Every page has what the old section had: Appearance › Colors has the theme cards and
+      the album cover switch, Notifications › Discord the Discord rules, Games › Fps overlay
+      the fps switch and corner, Lock screen › Ambient the new switch
+- [ ] Type "weather" in the search box: the list under it shows Weather · Lock screen; Enter
+      opens it, Esc clears the box; Ctrl+F focuses it
+- [ ] `qs ipc call settings section sound`, `… section shell/weather`, `… section ambient`
+      open the right place; Ctrl+Tab walks the categories
+- [ ] Change a value on a page, go back: the row shows the new value; the round arrow on the
+      row still puts it back
+
+Grouped notifications and replies:
+- [ ] Send three `notify-send -a test` in a row: one card with two cards peeking under it and
+      "+2"; click "+2": the three unfold, click again: they fold back
+- [ ] Let the front card expire: the next one springs to the front with a fresh time line
+- [ ] A notification from another app in between sits on its own stack
+- [ ] Popups style line and minimal: "+2" in the row, a click opens the stack
+- [ ] Game mode with compact on: the pill shows "+2", nothing unfolds
+- [ ] The bell: one row per app with "+2", click unfolds, the action buttons still work
+- [ ] A Discord DM (Vesktop with ShellBridge): the card has "reply" and "open"; reply, type,
+      Enter: "sent" shows, the card closes, Discord has the message. If typing does not reach
+      the field, click into it once (then note it: the window needs exclusive keyboard focus)
+- [ ] With the reply field open the card does not expire; Esc closes the field
+- [ ] Settings › Notifications › Groups and replies both off: no stacks, no reply action
+
+Ambient lock screen (Settings › Lock screen › Ambient on, 1 min):
+- [ ] `qs ipc call lock preview 100`, hands off for a minute: the clock shrinks and goes
+      dim, date, pill and hint fade, the blur goes full, weather, music and notes stay dimmer
+- [ ] Wait another 30–60 s: the clock glides to a nearby spot over a few seconds
+- [ ] Move the mouse: everything is back in half a second, the clock glides home
+- [ ] Lock for real, wait, type the password straight away: the first key wakes the screen
+      and counts as the first dot; Enter unlocks with the normal animation
+- [ ] Two monitors: both deepen; the mouse on the other monitor wakes both
+- [ ] Animations off: it dims at once, the clock never drifts
+
+Album colors (Settings › Appearance › Colors › "Colors from the album cover", on by default):
+- [ ] A song with a colorful cover: the Spotify bloom's pill, progress line and play button take
+      the cover's hue, title and artist stay the theme's text; the dashboard's media card and
+      the lockscreen's music (`qs ipc call lock preview 10`) show the same accent
+- [ ] Skip to a song with a very different cover: the colors crossfade, no snap to the theme
+- [ ] A black-and-white cover: everything is the theme's colors again
+- [ ] The switch off: all three fade back to the theme; `hyprctl layers` has no qs-album-color
+- [ ] `facet theme set <other>` while a song plays: the accent retones to the new surface
+- [ ] `qs log` has no Canvas or getImageData errors across a few songs; if the colors never
+      come (the sampler window may not paint on Hyprland), note it: there is a fallback through
+      `magick` for local covers only, Spotify's covers are https
+
+Device pages in the control center:
+- [ ] Network, Bluetooth and Mic mute tiles have a divider and a chevron; the volume slider
+      ends in a round chevron button; a desktop without Wi-Fi has no chevron on Network
+- [ ] The left part of the Network tile toggles the radio; the chevron (or a right click)
+      slides the Wi-Fi page in, the tiles leave left, the drawer height glides; Esc goes back
+      to the tiles, Esc again closes the drawer
+- [ ] Wi-Fi page: the connected network first with "connected" and a disconnect button;
+      rescan refreshes; the header switch off shows "Wi-Fi is off", on brings the list back
+- [ ] Click a known network: it connects; an unknown secured one opens a password field in
+      the row, a wrong password shows nmcli's error and reopens the field, the right one
+      connects. If typing does not reach the field, note it (the drawer may need exclusive
+      keyboard focus for it)
+- [ ] Bluetooth page: a paired headset connects and disconnects by click, battery in the row;
+      "Pair a new device" runs discovery, a phone in pairing mode shows up and pairs by click
+- [ ] Mic mute chevron: the input list, picking a microphone moves the check and Settings ›
+      Sound › Input agrees; volume chevron: the output list, picking a device moves the sound
+- [ ] Close the drawer with a page open, reopen: the tiles are back
